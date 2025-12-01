@@ -30,7 +30,8 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'webserver',]
+    'webserver',
+    'task-manager-by-farguz.onrender.com',]
 
 
 # Application definition
