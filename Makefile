@@ -4,6 +4,9 @@ install:
 build:
 	./build.sh
 
+local-start:
+	uv run manage.py runserver
+
 render-start:
 	gunicorn task_manager.wsgi
 
