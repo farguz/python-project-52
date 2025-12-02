@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block title %}TMbf Registration{% endblock %}
+
+{% block content %}
+<form>
+    <div class="form-group">
+        <label for="inputName">Имя</label>
+        <input type="text" class="form-control" id="inputName" placeholder="Имя">
+    </div>
+    <div class="form-group">
+        <label for="inputSurname">Фамилия</label>
+        <input type="text" class="form-control" id="inputSurname" placeholder="Фамилия">
+    </div>
+    <div class="form-group">
+        <label for="inputNickname">Имя пользователя</label>
+        <input type="text" class="form-control" id="inputNickname" placeholder="Имя пользователя">
+        <small class="form-text text-muted">
+            Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.</small>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword">Пароль</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Пароль">
+        <small class="form-text text-muted">
+            Ваш пароль должен содержать как минимум 3 символа.</small>
+    </div>
+    <div class="form-group">
+        <label for="inputPasswordConfirmation">Подтверждение пароля</label>
+        <input type="password" id="inputPasswordConfirmation" class="form-control" placeholder="Подтверждение пароля">
+        <small class="form-text text-muted">
+            Для подтверждения введите, пожалуйста, пароль ещё раз.</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Зарегистрировать</button>
+</form>
+{% endblock %}
