@@ -10,6 +10,10 @@ local-start:
 render-start:
 	gunicorn task_manager.wsgi
 
+migrations:
+	uv run manage.py makemigrations
+	uv run manage.py migrate
+
 lint:
 	uv run ruff check
 
