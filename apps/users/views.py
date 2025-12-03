@@ -20,10 +20,13 @@ class IndexView(View):
 
 class RegistrationView(View):
     def get(self, request, *args, **kwargs):
+        form = CreateUserForm(request.POST)
         return render(
             request,
             'users/create.html',
-        )
+            context={
+                "form": form,
+                })
 
     def post(self, request, *args, **kwargs):
         form = CreateUserForm(request.POST)

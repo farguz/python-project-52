@@ -4,34 +4,40 @@
 {% block title %}TMbf Registration{% endblock %}
 
 {% block content %}
-<form action="{% url 'user_create' %}" method="post">
-    {% csrf_token %}
-    <div class="form-group">
-        <label for="name">Имя</label>
-        <input type="text" class="form-control" id="name" placeholder="Имя">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <form action="{% url 'user_create' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Имя</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Имя">
+                </div>
+                <div class="form-group">
+                    <label for="surname">Фамилия</label>
+                    <input type="text" class="form-control" id="surname" name="surname" placeholder="Фамилия">
+                </div>
+                <div class="form-group">
+                    <label for="nickname">Имя пользователя</label>
+                    <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Имя пользователя">
+                    <small class="form-text text-muted">
+                        Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.</small>
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Пароль">
+                    <small class="form-text text-muted">
+                        Ваш пароль должен содержать как минимум 3 символа.</small>
+                </div>
+                <div class="form-group">
+                    <label for="passwordConfirmation">Подтверждение пароля</label>
+                    <input type="password" class="form-control" id="passwordConfirmation" name="passwordConfirmation" placeholder="Подтверждение пароля">
+                    <small class="form-text text-muted">
+                        Для подтверждения введите, пожалуйста, пароль ещё раз.</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Зарегистрировать</button>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="surname">Фамилия</label>
-        <input type="text" class="form-control" id="surname" placeholder="Фамилия">
-    </div>
-    <div class="form-group">
-        <label for="nickname">Имя пользователя</label>
-        <input type="text" class="form-control" id="nickname" placeholder="Имя пользователя">
-        <small class="form-text text-muted">
-            Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.</small>
-    </div>
-    <div class="form-group">
-        <label for="password">Пароль</label>
-        <input type="password" class="form-control" id="password" placeholder="Пароль">
-        <small class="form-text text-muted">
-            Ваш пароль должен содержать как минимум 3 символа.</small>
-    </div>
-    <div class="form-group">
-        <label for="passwordConfirmation">Подтверждение пароля</label>
-        <input type="password" class="form-control" id="passwordConfirmation" placeholder="Подтверждение пароля">
-        <small class="form-text text-muted">
-            Для подтверждения введите, пожалуйста, пароль ещё раз.</small>
-    </div>
-    <button type="submit" class="btn btn-primary">Зарегистрировать</button>
-</form>
+</div>
 {% endblock %}

@@ -4,30 +4,36 @@
 {% block title %}TMbf Users list{% endblock %}
 
 {% block content %}
-<h1>Пользователи</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Имя пользователя</th>
-            <th scope="col">Полное имя</th>
-            <th scope="col">Дата создания</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-{% for user in users %}
-    <tbody>
-        <tr scope="row">
-            <td>{{ user.user_id }}</td>
-            <td>{{ user.nickname }}</td>
-            <td>{{ user.name }} {{ user.surname }}</td>
-            <td>{{ user.created_at }}</td>
-            <td>
-                <div><p><a href="#">Изменить</a></p></div>
-                <div><p><a href="#">Удалить</a></p></div>
-            </td>
-        </tr>
-    </tbody>
-</table>
-{% endfor %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1>Пользователи</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Имя пользователя</th>
+                        <th scope="col">Полное имя</th>
+                        <th scope="col">Дата создания</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+            {% for user in users %}
+                    <tr scope="row">
+                        <td>{{ user.user_id }}</td>
+                        <td>{{ user.nickname }}</td>
+                        <td>{{ user.name }} {{ user.surname }}</td>
+                        <td>{{ user.created_at }}</td>
+                        <td>
+                            <p><a href="{% url 'user_update' %}">Изменить</a></p>
+                            <p><a href="{% url 'user_delete' %}">Удалить</a></p>
+                        </td>
+                    </tr>
+            {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
