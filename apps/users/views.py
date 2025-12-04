@@ -82,4 +82,20 @@ class UpdateView(View):
     
 
 class DeleteView(View):
-    pass
+    def get(self, request, *args, **kwargs):
+        user_id = kwargs.get('id')
+        user = get_object_or_404(CustomUser, id=user_id)
+        return render(
+            request,
+            'users/delete.html',
+            context={
+                'user': user,
+                },
+            )
+    
+    def post(self, request, *args, **kwargs):
+        user_id = kwargs.get('id')
+        user = CustomUser.objects.get(id=user_id)
+        if user:
+            user.delete()
+        return redirect('user_list')

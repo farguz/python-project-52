@@ -27,7 +27,7 @@
                         <td>{{ user.date_joined }}</td>
                         <td>
                             <p><a href="{% url 'user_update' user.id %}">Изменить</a></p>
-                            <p><a href="#">Удалить</a></p>
+                            <p><a href="{% url 'user_delete' user.id %}">Удалить</a></p>
                         </td>
                     </tr>
             {% endfor %}

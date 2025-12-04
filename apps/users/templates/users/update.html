@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
 
-{% block title %}TMbf Registration{% endblock %}
+{% block title %}TMbf Update User{% endblock %}
 
 {% block content %}
 
@@ -18,7 +18,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mx-auto">
-            <h1> Изменение пользователя </h1>
+            <h1>Изменение пользователя</h1>
             <form action="{% url 'user_update' user.id %}" method="post">
                 {% csrf_token %}
                 <div class="mb-3">
