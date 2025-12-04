@@ -10,28 +10,28 @@
             <form action="{% url 'user_create' %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="name">Имя</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Имя">
+                    <label for="first_name">Имя</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Имя">
                 </div>
                 <div class="form-group">
-                    <label for="surname">Фамилия</label>
-                    <input type="text" class="form-control" id="surname" name="surname" placeholder="Фамилия">
+                    <label for="last_name">Фамилия</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Фамилия">
                 </div>
                 <div class="form-group">
-                    <label for="nickname">Имя пользователя</label>
-                    <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Имя пользователя">
+                    <label for="username">Имя пользователя</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Имя пользователя">
                     <small class="form-text text-muted">
                         Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.</small>
                 </div>
                 <div class="form-group">
-                    <label for="password">Пароль</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Пароль">
+                    <label for="password1">Пароль</label>
+                    <input type="password" class="form-control" id="password1" name="password1" placeholder="Пароль">
                     <small class="form-text text-muted">
                         Ваш пароль должен содержать как минимум 3 символа.</small>
                 </div>
                 <div class="form-group">
-                    <label for="passwordConfirmation">Подтверждение пароля</label>
-                    <input type="password" class="form-control" id="passwordConfirmation" name="passwordConfirmation" placeholder="Подтверждение пароля">
+                    <label for="password2">Подтверждение пароля</label>
+                    <input type="password" class="form-control" id="password2" name="password2" placeholder="Подтверждение пароля">
                     <small class="form-text text-muted">
                         Для подтверждения введите, пожалуйста, пароль ещё раз.</small>
                 </div>
