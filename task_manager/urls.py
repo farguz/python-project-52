@@ -19,8 +19,11 @@ from django.urls import include, path
 
 from task_manager import views
 
+from .views import LoginView
+
 urlpatterns = [
     path('users/', include('users.urls')),
     path('admin/', admin.site.urls, name='admin_page'),
+    path('login/', LoginView.as_view(), name='login'),
     path('', views.index, name='index_page'),
 ]
