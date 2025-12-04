@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.urls import reverse
-from users.forms import CreateUserForm
-from users.models import User
+from users.forms import CustomUserCreationForm
+from users.models import CustomUser
 
 
 # Create your views here.
 class IndexView(View):
     def get(self, request, *args, **kwargs):
-        users = User.objects.all()
+        users = CustomUser.objects.all()
         return render(
             request,
             'users/index.html',
@@ -20,7 +20,7 @@ class IndexView(View):
 
 class RegistrationView(View):
     def get(self, request, *args, **kwargs):
-        form = CreateUserForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         return render(
             request,
             'users/create.html',
@@ -29,7 +29,7 @@ class RegistrationView(View):
                 })
 
     def post(self, request, *args, **kwargs):
-        form = CreateUserForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
 
