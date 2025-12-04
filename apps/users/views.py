@@ -1,6 +1,6 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
-from users.forms import CustomUserCreationForm
+from users.forms import CustomUserChangeForm, CustomUserCreationForm
 from users.models import CustomUser
 
 
@@ -34,6 +34,7 @@ class RegistrationView(View):
             form.save()
             return redirect('user_list')
         else:
+            # prettify later
             errors = form.errors
             return render(
                 request,
@@ -41,15 +42,43 @@ class RegistrationView(View):
                 context={
                     'form': form,
                     'errors': errors,
-                    })
-
-
-class LoginView(View):
-    pass
+                    }
+                )
 
 
 class UpdateView(View):
-    pass
+    def get(self, request, *args, **kwargs):
+        user_id = kwargs.get('id')
+        user = get_object_or_404(CustomUser, id=user_id)
+        form = CustomUserChangeForm(instance=user)
+        return render(
+            request,
+            'users/update.html',
+            context={
+                'form': form,
+                'user': user,
+                },
+            )
+    
+    def post(self, request, *args, **kwargs):
+        user_id = kwargs.get('id')
+        user = get_object_or_404(CustomUser, id=user_id)
+        form = CustomUserChangeForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user_list')
+        else:
+            # prettify later
+            errors = form.errors
+            return render(
+                request,
+                'users/update.html',
+                context={
+                    'form': form,
+                    'user': user,
+                    'errors': errors,
+                    }
+                )
     
 
 class DeleteView(View):

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block title %}TMbf Registration{% endblock %}
+
+{% block content %}
+
+{% if form.errors %}
+<div>
+    <ul>
+    {% for error in form.errors %}
+        <li><strong>{{ error|escape }}</strong></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1> Изменение пользователя </h1>
+            <form action="{% url 'user_update' user.id %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label" for="id_first_name">Имя</label>
+                    <input type="text" class="form-control" id="id_first_name" name="first_name" value="{{ user.first_name }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="id_last_name">Фамилия</label>
+                    <input type="text" class="form-control" id="id_last_name" name="last_name" value="{{ user.last_name }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="id_username">Имя пользователя</label>
+                    <input type="text" class="form-control" id="id_username" name="username" value="{{ user.username }}">
+                    <small class="form-text text-muted">
+                        Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.</small>
+                <div class="mb-3">
+                    <label class="form-label" for="id_password1">Пароль</label>
+                    <input type="password" class="form-control" id="id_password1" name="password1" placeholder="Пароль">
+                    <small class="form-text text-muted">
+                        Ваш пароль должен содержать как минимум 3 символа.</small>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="id_password2">Подтверждение пароля</label>
+                    <input type="password" class="form-control" id="id_password2" name="password2" placeholder="Подтверждение пароля">
+                    <small class="form-text text-muted">
+                        Для подтверждения введите, пожалуйста, пароль ещё раз.</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Зарегистрировать</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
