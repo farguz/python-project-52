@@ -4,34 +4,45 @@
 {% block title %}TMbf Registration{% endblock %}
 
 {% block content %}
+
+{% if form.errors %}
+<div>
+    <ul>
+    {% for error in form.errors %}
+        <li><strong>{{ error|escape }}</strong></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mx-auto">
+            <h1>Регистрация</h1>
             <form action="{% url 'user_create' %}" method="post">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="first_name">Имя</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Имя">
+                <div class="mb-3">
+                    <label class="form-label" for="id_first_name">Имя</label>
+                    <input type="text" class="form-control" id="id_first_name" name="first_name" placeholder="Имя">
                 </div>
-                <div class="form-group">
-                    <label for="last_name">Фамилия</label>
-                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Фамилия">
+                <div class="mb-3">
+                    <label class="form-label" for="id_last_name">Фамилия</label>
+                    <input type="text" class="form-control" id="id_last_name" name="last_name" placeholder="Фамилия">
                 </div>
-                <div class="form-group">
-                    <label for="username">Имя пользователя</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Имя пользователя">
+                <div class="mb-3">
+                    <label class="form-label" for="id_username">Имя пользователя</label>
+                    <input type="text" class="form-control" id="id_username" name="username" placeholder="Имя пользователя">
                     <small class="form-text text-muted">
                         Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.</small>
-                </div>
-                <div class="form-group">
-                    <label for="password1">Пароль</label>
-                    <input type="password" class="form-control" id="password1" name="password1" placeholder="Пароль">
+                <div class="mb-3">
+                    <label class="form-label" for="id_password1">Пароль</label>
+                    <input type="password" class="form-control" id="id_password1" name="password1" placeholder="Пароль">
                     <small class="form-text text-muted">
                         Ваш пароль должен содержать как минимум 3 символа.</small>
                 </div>
-                <div class="form-group">
-                    <label for="password2">Подтверждение пароля</label>
-                    <input type="password" class="form-control" id="password2" name="password2" placeholder="Подтверждение пароля">
+                <div class="mb-3">
+                    <label class="form-label" for="id_password2">Подтверждение пароля</label>
+                    <input type="password" class="form-control" id="id_password2" name="password2" placeholder="Подтверждение пароля">
                     <small class="form-text text-muted">
                         Для подтверждения введите, пожалуйста, пароль ещё раз.</small>
                 </div>

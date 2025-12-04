@@ -1,5 +1,4 @@
 from django.shortcuts import redirect, render
-from django.urls import reverse
 from django.views import View
 from users.forms import CustomUserCreationForm
 from users.models import CustomUser
@@ -14,27 +13,35 @@ class IndexView(View):
             'users/index.html',
             context={
                 'users': users,
-            }
+            },
         )
     
 
 class RegistrationView(View):
     def get(self, request, *args, **kwargs):
-        form = CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm()
         return render(
             request,
             'users/create.html',
             context={
                 "form": form,
-                })
+                },
+            )
 
     def post(self, request, *args, **kwargs):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-
-        # no matter what, fix according to check results
-        return redirect(reverse('user_list'))
+            return redirect('user_list')
+        else:
+            errors = form.errors
+            return render(
+                request,
+                'users/create.html',
+                context={
+                    'form': form,
+                    'errors': errors,
+                    })
 
 
 class LoginView(View):
