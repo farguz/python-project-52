@@ -9,6 +9,6 @@ preview = true
 select = ["E", "F", "I", "C90"]
 
 exclude = [
-    "migrations",
+    "*/migrations/*",
     "settings.py",
 ]
