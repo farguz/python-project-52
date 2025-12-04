@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
-from django.views import View
+from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.views import View
 from users.forms import CustomUserCreationForm
 from users.models import CustomUser
 
@@ -37,9 +37,9 @@ class RegistrationView(View):
         return redirect(reverse('user_list'))
 
 
-
 class LoginView(View):
     pass
+
 
 class UpdateView(View):
     pass
