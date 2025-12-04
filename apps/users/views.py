@@ -32,7 +32,7 @@ class RegistrationView(View):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('user_list')
+            return redirect('login')
         else:
             # prettify later
             errors = form.errors
