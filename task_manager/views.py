@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.views import View
 
@@ -43,3 +43,9 @@ class LoginView(View):
                 'errors': errors,
                 },
             )
+        
+
+class LogoutView(View):
+    def post(self, request, *args, **kwargs):
+        logout(request)
+        return redirect('index_page')
