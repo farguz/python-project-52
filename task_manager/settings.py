@@ -66,6 +66,8 @@ MIDDLEWARE = [
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
+LOGIN_URL = '/login/'
+
 ROOT_URLCONF = 'task_manager.urls'
 
 TEMPLATES = [
