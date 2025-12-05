@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from users.forms import CustomUserChangeForm, CustomUserCreationForm
@@ -46,7 +47,11 @@ class RegistrationView(View):
                 )
 
 
-class UpdateView(View):
+class UpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
+    def test_func(self):
+        user_id = self.kwargs.get('id')
+        return self.request.user.id == user_id
+    
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get('id')
         user = get_object_or_404(CustomUser, id=user_id)
@@ -81,7 +86,11 @@ class UpdateView(View):
                 )
     
 
-class DeleteView(View):
+class DeleteView(LoginRequiredMixin, UserPassesTestMixin, View):
+    def test_func(self):
+        user_id = self.kwargs.get('id')
+        return self.request.user.id == user_id
+
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get('id')
         user = get_object_or_404(CustomUser, id=user_id)
