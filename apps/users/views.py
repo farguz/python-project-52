@@ -50,7 +50,7 @@ class RegistrationView(View):
 class UpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
     def test_func(self):
         user_id = self.kwargs.get('id')
-        return self.request.user.id == user_id
+        return self.request.user.id == user_id or self.request.user.is_superuser
     
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get('id')
@@ -89,7 +89,7 @@ class UpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
 class DeleteView(LoginRequiredMixin, UserPassesTestMixin, View):
     def test_func(self):
         user_id = self.kwargs.get('id')
-        return self.request.user.id == user_id
+        return self.request.user.id == user_id or self.request.user.is_superuser
 
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get('id')
