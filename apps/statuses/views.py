@@ -4,7 +4,7 @@ from statuses.models import Status
 
 
 # Create your views here.
-class IndexView(View):
+class IndexStatusView(View):
     def get(self, request, *args, **kwargs):
         statuses = Status.objects.all()
         return render(
