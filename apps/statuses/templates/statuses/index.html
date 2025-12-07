@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block title %}TMbf Statuses list{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1>Статусы</h1>
+            <button class="btn btn-primary"><a href="{% url 'status_create' status.id %}">Изменить</a></button>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Дата создания</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+            {% for status in status %}
+                    <tr scope="row">
+                        <td>{{ status.id }}</td>
+                        <td>{{ status.name }}</td>
+                        <td>{{ status.created_at }}</td>
+                        <td>
+                            <p><a href="{% url 'status_update' status.id %}">Изменить</a></p>
+                            <p><a href="{% url 'status_delete' status.id %}">Удалить</a></p>
+                        </td>
+                    </tr>
+            {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

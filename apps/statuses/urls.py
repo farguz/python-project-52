@@ -1,8 +1,8 @@
 from django.urls import path
 from users.views import (
+    CreateStatusView,
     DeleteStatusView,
     IndexStatusView,
-    CreateStatusView,
     UpdateStatusView,
 )
 
