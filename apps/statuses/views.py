@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from statuses.forms import StatusesCreationForm, StatusesUpdateForm
@@ -5,7 +6,7 @@ from statuses.models import Status
 
 
 # Create your views here.
-class IndexStatusView(View):
+class IndexStatusView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         statuses = Status.objects.all()
         return render(
@@ -17,7 +18,7 @@ class IndexStatusView(View):
         )
     
 
-class CreateStatusView(View):
+class CreateStatusView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         form = StatusesCreationForm()
         return render(
@@ -46,10 +47,7 @@ class CreateStatusView(View):
                 )
         
 
-class UpdateStatusView(View):
-    """def test_func(self):
-        user_id = self.kwargs.get('id')
-        return self.request.user.id == user_id or self.request.user.is_superuser"""
+class UpdateStatusView(LoginRequiredMixin, View):
     
     def get(self, request, *args, **kwargs):
         status_id = kwargs.get('id')
@@ -83,3 +81,24 @@ class UpdateStatusView(View):
                     'errors': errors,
                 }
             )
+
+
+class DeleteStatusView(LoginRequiredMixin, View):
+
+    def get(self, request, *args, **kwargs):
+        status_id = kwargs.get('id')
+        status = get_object_or_404(Status, id=status_id)
+        return render(
+            request,
+            'statuses/delete.html',
+            context={
+                'status': status,
+                },
+            )
+    
+    def post(self, request, *args, **kwargs):
+        status_id = kwargs.get('id')
+        status = get_object_or_404(Status, id=status_id)
+        if status:
+            status.delete()
+        return redirect('status_list')
