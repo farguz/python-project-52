@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-8 mx-auto">
             <h1>Статусы</h1>
-            <button class="btn btn-primary"><a href="{% url 'status_create' status.id %}">Изменить</a></button>
+            <a class="btn btn-primary" href="{% url 'status_create' %}">Создать статус</a>
             <table class="table">
                 <thead>
                     <tr>
@@ -19,14 +19,14 @@
                     </tr>
                 </thead>
                 <tbody>
-            {% for status in status %}
+            {% for status in statuses %}
                     <tr scope="row">
                         <td>{{ status.id }}</td>
                         <td>{{ status.name }}</td>
                         <td>{{ status.created_at }}</td>
                         <td>
-                            <p><a href="{% url 'status_update' status.id %}">Изменить</a></p>
-                            <p><a href="{% url 'status_delete' status.id %}">Удалить</a></p>
+                            <p><a href="#">Изменить</a></p>
+                            <p><a href="#">Удалить</a></p>
                         </td>
                     </tr>
             {% endfor %}
