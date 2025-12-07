@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
@@ -33,6 +34,7 @@ class CreateStatusView(LoginRequiredMixin, View):
         form = StatusesCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Статус успешно создан')
             return redirect('status_list')
         else:
             # prettify later
@@ -68,6 +70,7 @@ class UpdateStatusView(LoginRequiredMixin, View):
         form = StatusesUpdateForm(request.POST, instance=status)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Статус успешно изменен')
             return redirect('status_list')
         else:
             # prettify later
@@ -101,4 +104,5 @@ class DeleteStatusView(LoginRequiredMixin, View):
         status = get_object_or_404(Status, id=status_id)
         if status:
             status.delete()
+            messages.success(request, 'Статус успешно удален')
         return redirect('status_list')
