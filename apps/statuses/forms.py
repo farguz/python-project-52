@@ -8,3 +8,11 @@ class StatusesCreationForm(ModelForm):
         fields = [
             'name',
         ]
+
+
+class StatusesUpdateForm(ModelForm):
+    class Meta:
+        model = Status
+        fields = [
+            'name',
+        ]
