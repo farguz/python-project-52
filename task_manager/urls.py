@@ -24,6 +24,7 @@ from .views import LoginView, LogoutView
 urlpatterns = [
     path('users/', include('task_manager.users.urls')),
     path('statuses/', include('task_manager.statuses.urls')),
+    path('tasks/', include('task_manager.statuses.urls')),
     path('admin/', admin.site.urls, name='admin_page'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),

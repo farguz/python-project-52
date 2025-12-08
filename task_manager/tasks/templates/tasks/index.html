@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<a class="btn btn-primary" href="#">Создать задачу</a>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            FUTURE FILTER CONTAINER
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1>Задачи</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col">Автор</th>
+                        <th scope="col">Исполнитель</th>
+                        <th scope="col">Дата создания</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr scope="row">
+                        <td>{{ task.id }}</td>
+                        <td>{{ task.name }}</td>
+                        <td>{{ task.status }}</td>
+                        <td>{{ task.creator }}</td>
+                        <td>{{ task.executor }}</td>
+                        <td>{{ task.created_at }}</td>
+                        <td>
+                            <p><a href="#">Изменить</a></p>
+                            <p><a href="#">Удалить</a></p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
