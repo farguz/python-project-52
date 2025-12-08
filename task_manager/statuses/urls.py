@@ -1,5 +1,6 @@
 from django.urls import path
-from statuses.views import (
+
+from .views import (
     CreateStatusView,
     DeleteStatusView,
     IndexStatusView,

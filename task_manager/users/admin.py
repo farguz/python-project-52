@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from users.forms import CustomUserChangeForm, CustomUserCreationForm
-from users.models import CustomUser
+
+from .forms import CustomUserChangeForm, CustomUserCreationForm
+from .models import CustomUser
 
 
 # Register your models here.

@@ -1,8 +1,8 @@
 from django.urls import path
-from users.views import (
+
+from .views import (
     DeleteView,
     IndexView,
-    # LoginView,
     RegistrationView,
     UpdateView,
 )

@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
-from users.forms import CustomUserChangeForm, CustomUserCreationForm
-from users.models import CustomUser
+
+from .forms import CustomUserChangeForm, CustomUserCreationForm
+from .models import CustomUser
 
 
 # Create your views here.
