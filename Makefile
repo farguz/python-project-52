@@ -21,9 +21,12 @@ lint-with-fix:
 	uv run ruff check --fix
 
 test:
+	uv run manage.py test
+
+test-pytest:
 	uv run pytest
 
-test-coverage:
+test-pytest-coverage:
 	uv run pytest --cov=gendiff --cov-report xml
 
 check: test lint
