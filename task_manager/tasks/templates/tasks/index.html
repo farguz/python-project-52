@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
 
-{% block title %}{% endblock %}
+{% block title %}TMbf{% endblock %}
 
 {% block content %}
-<a class="btn btn-primary" href="#">Создать задачу</a>
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mx-auto">
@@ -16,6 +15,7 @@
     <div class="row">
         <div class="col-lg-8 mx-auto">
             <h1>Задачи</h1>
+            <a class="btn btn-primary" href="{% url 'task_create' %}">Создать задачу</a>
             <table class="table">
                 <thead>
                     <tr>
@@ -33,9 +33,9 @@
                     <tr scope="row">
                         <td>{{ task.id }}</td>
                         <td>{{ task.name }}</td>
-                        <td>{{ task.status }}</td>
+                        <td>{{ task.status.name }}</td>
                         <td>{{ task.creator }}</td>
-                        <td>{{ task.executor }}</td>
+                        <td>{{ task.executor.first_name }} {{ task.executor.last_name }}</td>
                         <td>{{ task.created_at }}</td>
                         <td>
                             <p><a href="#">Изменить</a></p>

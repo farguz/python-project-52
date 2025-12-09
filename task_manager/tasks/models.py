@@ -3,8 +3,6 @@ from django.db import models
 
 from task_manager.statuses.models import Status
 
-# from task_manager.users.models import CustomUser
-
 # Create your models here.
 User = get_user_model()
 
@@ -17,7 +15,7 @@ class Task(models.Model):
         User,
         on_delete=models.PROTECT,
         blank=False,
-        related_name="task_creator")  # AUTOSET LOGGED USER! do here or at View?
+        related_name="task_creator")
     executor = models.ForeignKey(User,
         on_delete=models.PROTECT,
         blank=True,

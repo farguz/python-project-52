@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block title %}create task{% endblock %}
+
+{% block content %}
+
+{% if form.errors %}
+<div>
+    <ul>
+    {% for error in form.errors %}
+        <li><strong>{{ error|escape }}</strong></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1> Создать задачу</h1>
+            <form action="{% url 'task_create' %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label" for="id_name">Имя</label>
+                    <input type="text" class="form-control" id="id_name" name="name" placeholder="Имя">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="id_description">Описание</label>
+                    <input type="text" class="form-control" id="id_description" name="description" placeholder="Описание">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="id_status">Статус</label>
+                    <select class="form-select" select id="id_status" name="status">
+                        <option>----</option>
+                        {% for status in statuses %}
+                        <option value="{{ status.id }}">{{ status.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="id_executor">Исполнитель</label>
+                    <select class="form-select" select id="id_executor" name="executor">
+                        <option>----</option>
+                        {% for user in users %}
+                        <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="id_username">Тут будут метки</label>
+                    <input type="radio" class="form-control" id="id_executor" name="executor" placeholder="Тут будут метки">
+                <button type="submit" class="btn btn-primary">Создать</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
