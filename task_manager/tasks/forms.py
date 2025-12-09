@@ -13,3 +13,16 @@ class TaskCreationForm(ModelForm):
             'executor',
             # 'labels',
         ]
+
+
+# delete, the same???
+class TaskUpdateForm(ModelForm):
+    class Meta:
+        model = Task
+        fields = [
+            'name',
+            'description',
+            'status',
+            'executor',
+            # 'labels',
+        ]

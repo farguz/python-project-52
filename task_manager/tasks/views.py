@@ -2,11 +2,11 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView
 
 from task_manager.statuses.models import Status
 
-from .forms import TaskCreationForm
+from .forms import TaskCreationForm, TaskUpdateForm
 from .models import Task
 
 User = get_user_model()
@@ -26,7 +26,7 @@ class IndexTaskView(LoginRequiredMixin, ListView):
         )
     
 
-class CreateTaskView(CreateView):
+class CreateTaskView(LoginRequiredMixin, CreateView):
     model = Task
     form_class = TaskCreationForm
     template_name = 'tasks/create.html'
@@ -45,3 +45,30 @@ class CreateTaskView(CreateView):
         task.save()
         return super().form_valid(form)
     
+
+class UpdateTaskView(LoginRequiredMixin, UpdateView):
+    model = Task
+    """fields = [
+        'name',
+        'description',
+        'status',
+        'executor',
+        # 'labels',
+        'updated_at',
+        ]"""
+    form_class = TaskUpdateForm
+    template_name = 'tasks/update.html'
+    success_url = reverse_lazy('task_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tasks'] = Task.objects.all()
+        context['users'] = User.objects.all()
+        context['statuses'] = Status.objects.all()
+        return context
+    
+    """def form_valid(self, form):
+        task = form.save(commit=False)
+        task.creator = self.request.user
+        task.save()
+        return super().form_valid(form)"""
