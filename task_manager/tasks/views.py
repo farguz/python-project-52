@@ -1,8 +1,14 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
 from task_manager.statuses.models import Status
 
@@ -48,14 +54,6 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
 
 class UpdateTaskView(LoginRequiredMixin, UpdateView):
     model = Task
-    """fields = [
-        'name',
-        'description',
-        'status',
-        'executor',
-        # 'labels',
-        'updated_at',
-        ]"""
     form_class = TaskUpdateForm
     template_name = 'tasks/update.html'
     success_url = reverse_lazy('task_list')
@@ -67,8 +65,16 @@ class UpdateTaskView(LoginRequiredMixin, UpdateView):
         context['statuses'] = Status.objects.all()
         return context
     
-    """def form_valid(self, form):
-        task = form.save(commit=False)
-        task.creator = self.request.user
-        task.save()
-        return super().form_valid(form)"""
+
+class DeleteTaskView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    def test_func(self):
+        user_id = self.kwargs.get('id')
+        return self.request.user.id == user_id or self.request.user.is_superuser
+    
+    model = Task
+    template_name = 'tasks/delete.html'
+    success_url = reverse_lazy('task_list')
+
+
+class DetailTaskView(LoginRequiredMixin, DetailView):
+    pass
