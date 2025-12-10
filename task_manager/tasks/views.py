@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -20,16 +19,9 @@ User = get_user_model()
 
 # Create your views here.
 class IndexTaskView(LoginRequiredMixin, ListView):
-    def get(self, request, *args, **kwargs):
-        template_name = 'tasks/index.html' 
-        tasks = Task.objects.all()
-        return render(
-            request,
-            template_name,
-            context={
-                'tasks': tasks,
-            },
-        )
+    model = Task
+    template_name = 'tasks/index.html'
+    context_object_name = 'tasks'
     
 
 class CreateTaskView(LoginRequiredMixin, CreateView):
