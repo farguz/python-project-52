@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
@@ -36,7 +37,9 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
         task = form.save(commit=False)
         task.creator = self.request.user
         task.save()
-        return super().form_valid(form)
+        messages.success(self.request, 'Задача успешно создана')
+        response = super().form_valid(form)
+        return response
     
 
 class UpdateTaskView(LoginRequiredMixin, UpdateView):
@@ -52,6 +55,11 @@ class UpdateTaskView(LoginRequiredMixin, UpdateView):
         context['statuses'] = Status.objects.all()
         return context
     
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Задача успешно изменена')
+        return response
+    
 
 class DeleteTaskView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Task
@@ -61,7 +69,12 @@ class DeleteTaskView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         task = self.get_object()
         return self.request.user == task.creator or self.request.user.is_superuser
-    
+
+    def delete(self, request, *args, **kwargs):
+        response = super().delete(request, *args, **kwargs)
+        messages.success(request, 'Задача успешно удалена')
+        return response
+
 
 class DetailTaskView(LoginRequiredMixin, DetailView):
     model = Task
