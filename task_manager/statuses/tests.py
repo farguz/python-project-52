@@ -11,7 +11,7 @@ class StatusesTest(TestCase):
 
     fixtures = [
         'statuses.json',
-        '../../users/fixtures/users.json']
+        'users.json']
     
     def setUp(self): 
         self.status_list_url = reverse('status_list')
