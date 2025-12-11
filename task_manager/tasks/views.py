@@ -70,11 +70,11 @@ class DeleteTaskView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         task = self.get_object()
         return self.request.user == task.creator or self.request.user.is_superuser
 
-    def delete(self, request, *args, **kwargs):
-        response = super().delete(request, *args, **kwargs)
-        messages.success(request, 'Задача успешно удалена')
-        return response
-
+    def get_success_url(self):
+        # i have no idea why modifying delete(self, request, *args, **kwargs) doesn't work
+        messages.success(self.request, 'Задача успешно удалена')
+        return super().get_success_url()
+    
 
 class DetailTaskView(LoginRequiredMixin, DetailView):
     model = Task
