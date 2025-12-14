@@ -14,7 +14,28 @@
         {% endfor %}
     </div>
 {% endif %}
-
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto"><form method="get" class="mb-3">
+    <div class="row">
+        <label>Статус</label>
+        {{ filter.form.status }}
+    <div class="col-md-3">
+        <label>Исполнитель</label>
+            {{ filter.form.executor }}
+        </div>
+            <div class="form-check">
+                {{ filter.form.my_tasks }}
+                <label class="form-check-label">Мои задачи</label>
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">Применить</button>
+        </div>
+    </div>
+</form>
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mx-auto">

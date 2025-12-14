@@ -2,11 +2,13 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django_filters.views import FilterView
 
 from task_manager.statuses.models import Status
 
+from .filters import TaskFilter
 from .forms import TaskCreationForm, TaskUpdateForm
 from .models import Task
 
@@ -14,10 +16,14 @@ User = get_user_model()
 
 
 # Create your views here.
-class IndexTaskView(LoginRequiredMixin, ListView):
+class IndexTaskView(LoginRequiredMixin, FilterView):
     model = Task
     template_name = 'tasks/index.html'
     context_object_name = 'tasks'
+    filterset_class = TaskFilter
+    
+    def get_queryset(self):
+        return Task.objects.all()
     
 
 class CreateTaskView(LoginRequiredMixin, CreateView):
