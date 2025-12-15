@@ -40,11 +40,6 @@ class UpdateUserView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         user = self.get_object()
         return self.request.user == user or self.request.user.is_superuser
     
-    def get_object(self):
-        user_pk = self.kwargs.get('pk')
-        user = get_object_or_404(User, pk=user_pk)
-        return user
-    
     def get_success_url(self):
         messages.success(self.request, 'Пользователь успешно обновлен')
         return super().get_success_url()
