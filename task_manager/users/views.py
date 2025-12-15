@@ -1,111 +1,67 @@
+from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import get_object_or_404, redirect, render
-from django.views import View
+from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import ListView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .forms import CustomUserChangeForm, CustomUserCreationForm
-from .models import CustomUser
+
+User = get_user_model()
 
 
-# Create your views here.
-class IndexView(View):
-    def get(self, request, *args, **kwargs):
-        users = CustomUser.objects.all()
-        return render(
-            request,
-            'users/index.html',
-            context={
-                'users': users,
-            },
-        )
+class IndexUserView(ListView):
+    model = User
+    template_name = 'users/index.html'
+    context_object_name = 'users'
+
+
+class RegistrationView(CreateView):
+
+    model = User
+    form_class = CustomUserCreationForm
+    template_name = 'users/create.html'
+    success_url = reverse_lazy('login')
+
+    def get_success_url(self):
+        messages.success(self.request, 'Пользователь успешно создан')
+        return super().get_success_url()
+
+
+class UpdateUserView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = User
+    form_class = CustomUserChangeForm
+    template_name = 'users/update.html'
+    success_url = reverse_lazy('user_list')
+    context_object_name = 'user'
+
+    def test_func(self):    
+        user = self.get_object()
+        return self.request.user == user or self.request.user.is_superuser
     
-
-class RegistrationView(View):
-    def get(self, request, *args, **kwargs):
-        form = CustomUserCreationForm()
-        return render(
-            request,
-            'users/create.html',
-            context={
-                "form": form,
-                },
-            )
-
-    def post(self, request, *args, **kwargs):
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-        else:
-            # prettify later
-            errors = form.errors
-            return render(
-                request,
-                'users/create.html',
-                context={
-                    'form': form,
-                    'errors': errors,
-                    }
-                )
+    def get_object(self):
+        user_pk = self.kwargs.get('pk')
+        user = get_object_or_404(User, pk=user_pk)
+        return user
+    
+    def get_success_url(self):
+        messages.success(self.request, 'Пользователь успешно обновлен')
+        return super().get_success_url()
 
 
-class UpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
+class DeleteUserView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+
+    model = User
+    template_name = 'users/delete.html'
+    success_url = reverse_lazy('user_list')
+    context_object_name = 'user'
+
     def test_func(self):
-        user_id = self.kwargs.get('id')
-        return self.request.user.id == user_id or self.request.user.is_superuser
-    
-    def get(self, request, *args, **kwargs):
-        user_id = kwargs.get('id')
-        user = get_object_or_404(CustomUser, id=user_id)
-        form = CustomUserChangeForm(instance=user)
-        return render(
-            request,
-            'users/update.html',
-            context={
-                'form': form,
-                'user': user,
-                },
-            )
-    
-    def post(self, request, *args, **kwargs):
-        user_id = kwargs.get('id')
-        user = get_object_or_404(CustomUser, id=user_id)
-        form = CustomUserChangeForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
-            return redirect('user_list')
-        else:
-            # prettify later
-            errors = form.errors
-            return render(
-                request,
-                'users/update.html',
-                context={
-                    'form': form,
-                    'user': user,
-                    'errors': errors,
-                    }
-                )
-    
+        user = self.get_object()
+        return self.request.user == user or self.request.user.is_superuser
 
-class DeleteView(LoginRequiredMixin, UserPassesTestMixin, View):
-    def test_func(self):
-        user_id = self.kwargs.get('id')
-        return self.request.user.id == user_id or self.request.user.is_superuser
-
-    def get(self, request, *args, **kwargs):
-        user_id = kwargs.get('id')
-        user = get_object_or_404(CustomUser, id=user_id)
-        return render(
-            request,
-            'users/delete.html',
-            context={
-                'user': user,
-                },
-            )
+    def get_success_url(self):
+        messages.success(self.request, 'Пользователь успешно удален')
+        return super().get_success_url()
     
-    def post(self, request, *args, **kwargs):
-        user_id = kwargs.get('id')
-        user = CustomUser.objects.get(id=user_id)
-        if user:
-            user.delete()
-        return redirect('user_list')

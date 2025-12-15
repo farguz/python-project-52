@@ -1,16 +1,16 @@
 from django.urls import path
 
 from .views import (
-    DeleteView,
-    IndexView,
+    DeleteUserView,
+    IndexUserView,
     RegistrationView,
-    UpdateView,
+    UpdateUserView,
 )
 
 # ../users/
 urlpatterns = [
-    path('<int:id>/update/', UpdateView.as_view(), name='user_update'),
-    path('<int:id>/delete/', DeleteView.as_view(), name='user_delete'),
+    path('<int:pk>/update/', UpdateUserView.as_view(), name='user_update'),
+    path('<int:pk>/delete/', DeleteUserView.as_view(), name='user_delete'),
     path('create/', RegistrationView.as_view(), name='user_create'),
-    path('', IndexView.as_view(), name='user_list'),
+    path('', IndexUserView.as_view(), name='user_list'),
 ]
