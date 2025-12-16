@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block title %}TMbf Update Label{% endblock %}
+
+{% block content %}
+
+{% if form.errors %}
+<div>
+    <ul>
+    {% for error in form.errors %}
+        <li><strong>{{ error|escape }}</strong></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1>Изменение метки</h1>
+            <form action="{% url 'label_update' label.id %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label" for="id_name">Имя</label>
+                    <input type="text" class="form-control" id="id_name" name="name" value="{{ label.name }}">
+                </div>
+                <button type="submit" class="btn btn-primary">Изменить</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
