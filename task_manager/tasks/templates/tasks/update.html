@@ -48,8 +48,13 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="id_username">Тут будут метки</label>
-                    <input type="radio" class="form-control" id="id_executor" name="executor" placeholder="Тут будут метки">
+                    <label class="form-label" for="id_labels">Метки</label>
+                    <select type="checkbox" class="form-select" id="id_labels" name="labels" multiple="">
+                        {% for label in labels %}
+                        <option value="{{ label.pk }}">{{ label.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary">Изменить</button>
             </form>
         </div>

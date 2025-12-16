@@ -11,7 +11,7 @@ class TaskCreationForm(ModelForm):
             'description',
             'status',
             'executor',
-            # 'labels',
+            'labels',
         ]
 
 
@@ -24,5 +24,5 @@ class TaskUpdateForm(ModelForm):
             'description',
             'status',
             'executor',
-            # 'labels',
+            'labels',
         ]

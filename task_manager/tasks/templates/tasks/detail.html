@@ -31,7 +31,11 @@
                     <div class="col">
                         Метки
                         <ul>
-                            <li>[future labels list]</li>
+                            {% for label in task.labels.all %}
+                                <li>{{ label.name }}</li>
+                            {% empty %}
+                                <li>Метки не назначены</li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>

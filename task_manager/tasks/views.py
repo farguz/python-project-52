@@ -6,6 +6,7 @@ from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_filters.views import FilterView
 
+from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
 
 from .filters import TaskFilter
@@ -15,7 +16,6 @@ from .models import Task
 User = get_user_model()
 
 
-# Create your views here.
 class IndexTaskView(LoginRequiredMixin, FilterView):
     model = Task
     template_name = 'tasks/index.html'
@@ -37,6 +37,7 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
         context['tasks'] = Task.objects.all()
         context['users'] = User.objects.all()
         context['statuses'] = Status.objects.all()
+        context['labels'] = Label.objects.all()
         return context
     
     def form_valid(self, form):
@@ -59,6 +60,7 @@ class UpdateTaskView(LoginRequiredMixin, UpdateView):
         context['tasks'] = Task.objects.all()
         context['users'] = User.objects.all()
         context['statuses'] = Status.objects.all()
+        context['labels'] = Label.objects.all()
         return context
     
     def form_valid(self, form):
@@ -77,7 +79,6 @@ class DeleteTaskView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user == task.creator or self.request.user.is_superuser
 
     def get_success_url(self):
-        # i have no idea why modifying delete(self, request, *args, **kwargs) doesn't work
         messages.success(self.request, 'Задача успешно удалена')
         return super().get_success_url()
     
