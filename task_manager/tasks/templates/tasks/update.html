@@ -32,7 +32,7 @@
                 <div class="mb-3">
                     <label class="form-label" for="id_status">Статус</label>
                     <select class="form-select" select id="id_status" name="status">
-                        <option>{{ task.status.name }}</option>
+                        <option value="{{ task.status.id }}">{{ task.status.name }}</option>
                         {% for status in statuses %}
                         <option value="{{ status.id }}">{{ status.name }}</option>
                         {% endfor %}
@@ -41,7 +41,7 @@
                 <div class="mb-3">
                     <label class="form-label" for="id_executor">Исполнитель</label>
                     <select class="form-select" select id="id_executor" name="executor">
-                        <option>{{ task.executor.first_name }} {{ task.executor.last_name }}</option>
+                        <option value="{{ task.executor.id }}">{{ task.executor.first_name }} {{ task.executor.last_name }}</option>
                         {% for user in users %}
                         <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
                         {% endfor %}
@@ -49,9 +49,11 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="id_labels">Метки</label>
-                    <select type="checkbox" class="form-select" id="id_labels" name="labels" multiple="">
+                    <select class="form-select" id="id_labels" name="labels" multiple="">
                         {% for label in labels %}
-                        <option value="{{ label.pk }}">{{ label.name }}</option>
+                        <option value="{{ label.pk }}" {% if label in task.labels.all %}selected{% endif %}>
+                            {{ label.name }}
+                        </option>
                         {% endfor %}
                     </select>
                 </div>
