@@ -8,3 +8,6 @@ from django.utils.translation import gettext_lazy as _
 class CustomUser(AbstractUser):
     first_name = models.CharField(_("first name"), max_length=150, blank=False)
     last_name = models.CharField(_("last name"), max_length=150, blank=False)
+
+    def __str__(self):
+        return f'{self.last_name} {self.first_name}'
