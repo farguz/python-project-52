@@ -6,30 +6,34 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-lg-8 mx-auto"><form method="get" class="mb-3">
-    <div class="row">
-        <label>Статус</label>
-        {{ filter.form.status }}
-    <div class="col-md-3">
-        <label>Исполнитель</label>
-            {{ filter.form.executor }}
-        </div>
-            <div class="form-check">
-                {{ filter.form.my_tasks }}
-                <label class="form-check-label">Мои задачи</label>
-        </div>
-        <div class="col-md-3 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary">Применить</button>
-        </div>
-    </div>
-</form>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
         <div class="col-lg-8 mx-auto">
-            FUTURE FILTER CONTAINER
+            <form method="get" class="mb-3">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Исполнитель</label>
+                        {{ filter.form.executor }}
+                    </div>
+                    <div class="col-md-3">
+                        <label>Статус</label>
+                        {{ filter.form.status }}
+                    </div>
+                    <div class="col-md-3">
+                        <label>Метка</label>
+                        {{ filter.form.labels }}
+                    </div>
+                    <div class="form-check">
+                        {{ filter.form.tasks_by_me }}
+                        <label class="form-check-label">Я постановщик задачи</label>
+                    </div>
+                    <div class="form-check">
+                        {{ filter.form.tasks_for_me }}
+                        <label class="form-check-label">Я исполнитель задачи</label>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary">Применить</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -57,7 +61,7 @@
                         <td><a href="{% url 'task_detail' task.id %}">{{ task.name }}</a></td>
                         <td>{{ task.status.name }}</td>
                         <td>{{ task.creator }}</td>
-                        <td>{{ task.executor.first_name }} {{ task.executor.last_name }}</td>
+                        <td>{{ task.executor.last_name }} {{ task.executor.first_name }}</td>
                         <td>{{ task.created_at }}</td>
                         <td>
                             <p><a href="{% url 'task_update' task.id %}">Изменить</a></p>

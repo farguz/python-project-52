@@ -2,6 +2,7 @@ import django_filters
 from django import forms
 from django.contrib.auth import get_user_model
 
+from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
 
 from .models import Task
@@ -11,30 +12,53 @@ class TaskFilter(django_filters.FilterSet):
     User = get_user_model()
     users = User.objects.all()
     statuses = Status.objects.all()
+    labels_list = Label.objects.all()
 
-    status = django_filters.ModelChoiceFilter(
-        queryset=statuses.values_list('name', flat=True),
-        empty_label='Все статусы',
-        widget=forms.Select(attrs={'class': 'form-select'})
-    )
-    
     executor = django_filters.ModelChoiceFilter(
-        queryset=User.objects.filter(is_active=True).values_list('first_name', 'last_name'),
+        queryset=users,
         empty_label='Все исполнители',
         widget=forms.Select(attrs={'class': 'form-select'})
     )
     
-    tasks_by_myself = django_filters.ModelChoiceFilter(
-        queryset=users.filter(is_active=True),
-        label='Только свои задачи',
-        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
+    status = django_filters.ModelChoiceFilter(
+        queryset=statuses,
+        empty_label='Все статусы',
+        widget=forms.Select(attrs={'class': 'form-select'})
     )
+    
+    labels = django_filters.ModelChoiceFilter(
+        queryset=labels_list,
+        empty_label='Все метки',
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
+    
+    tasks_by_me = django_filters.BooleanFilter(
+        method='filter_tasks_by_me',
+        label='Я постановщик задачи',
+        widget=forms.CheckboxInput()
+    )
+
+    tasks_for_me = django_filters.BooleanFilter(
+        method='filter_tasks_for_me',
+        label='Я исполнитель задачи',
+        widget=forms.CheckboxInput()
+    )
+    
+    def filter_tasks_by_me(self, queryset, name, value):
+        if value:
+            return queryset.filter(creator=self.request.user)
+        return queryset
+    
+    def filter_tasks_for_me(self, queryset, name, value):
+        if value:
+            return queryset.filter(executor=self.request.user)
+        return queryset
     
     class Meta:
         model = Task
         fields = [
             'status',
             'executor',
-            # 'labels',
+            'labels',
             'creator',
         ]
