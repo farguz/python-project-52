@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -49,3 +50,15 @@ class DeleteLabelView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         messages.success(self.request, 'Метка успешно удалена')
         return super().get_success_url()
+
+    def form_valid(self, form):
+            self.label = self.object
+            if self.label.task_set.exists():
+                messages.error(
+                    self.request,
+                    'Невозможно удалить метку, потому что она используется в задачах'
+                    )
+                return redirect('label_list')
+            
+            response = super().form_valid(form)
+            return response

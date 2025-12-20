@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -50,4 +51,15 @@ class DeleteStatusView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         messages.success(self.request, 'Статус успешно удален')
         return super().get_success_url()
-    
+          
+    def form_valid(self, form):
+            self.status = self.object
+            if self.status.task_set.exists():
+                messages.error(
+                    self.request,
+                    'Невозможно удалить статус, потому что он используется в задачах'
+                    )
+                return redirect('status_list')
+            
+            response = super().form_valid(form)
+            return response
