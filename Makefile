@@ -14,6 +14,10 @@ migrations:
 	uv run manage.py makemigrations
 	uv run manage.py migrate
 
+messages:
+	uv run django-admin makemessages -l ru
+	uv run django-admin compilemessages
+
 lint:
 	uv run ruff check
 
