@@ -53,13 +53,13 @@ class DeleteStatusView(LoginRequiredMixin, DeleteView):
         return super().get_success_url()
           
     def form_valid(self, form):
-            self.status = self.object
-            if self.status.task_set.exists():
-                messages.error(
-                    self.request,
-                    'Невозможно удалить статус, потому что он используется в задачах'
-                    )
-                return redirect('status_list')
+        self.status = self.object
+        if self.status.task_set.exists():
+            messages.error(
+                self.request,
+                'Невозможно удалить статус, потому что он используется в задачах'
+                )
+            return redirect('status_list')
             
-            response = super().form_valid(form)
-            return response
+        response = super().form_valid(form)
+        return response

@@ -52,13 +52,13 @@ class DeleteLabelView(LoginRequiredMixin, DeleteView):
         return super().get_success_url()
 
     def form_valid(self, form):
-            self.label = self.object
-            if self.label.task_set.exists():
-                messages.error(
-                    self.request,
-                    'Невозможно удалить метку, потому что она используется в задачах'
-                    )
-                return redirect('label_list')
+        self.label = self.object
+        if self.label.task_set.exists():
+            messages.error(
+                self.request,
+                'Невозможно удалить метку, потому что она используется в задачах'
+                )
+            return redirect('label_list')
             
-            response = super().form_valid(form)
-            return response
+        response = super().form_valid(form)
+        return response
