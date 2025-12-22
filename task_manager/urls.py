@@ -22,6 +22,7 @@ from task_manager import views
 from .views import TaskManagerLoginView, TaskManagerLogoutView
 
 urlpatterns = [
+    path("i18n/", include("django.conf.urls.i18n")),
     path('users/', include('task_manager.users.urls')),
     path('statuses/', include('task_manager.statuses.urls')),
     path('tasks/', include('task_manager.tasks.urls')),
@@ -30,4 +31,5 @@ urlpatterns = [
     path('login/', TaskManagerLoginView.as_view(), name='login'),
     path('logout/', TaskManagerLogoutView.as_view(), name='logout'),
     path('', views.index, name='index_page'),
+    
 ]

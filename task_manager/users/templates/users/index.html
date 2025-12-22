@@ -1,36 +1,36 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
-
+{% load i18n %}
 {% block title %}TMbf Users list{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mx-auto">
-            <h1>Пользователи</h1>
+            <h1>{% trans 'Users' %}</h1>
             <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Имя пользователя</th>
-                        <th scope="col">Полное имя</th>
-                        <th scope="col">Дата создания</th>
+                        <th scope="col">{% trans 'Username' %}</th>
+                        <th scope="col">{% trans 'Full name' %}</th>
+                        <th scope="col">{% trans 'Registration date' %}</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
-            {% for user in users %}
+                    {% for user in users %}
                     <tr scope="row">
                         <td>{{ user.id }}</td>
                         <td>{{ user.username }}</td>
-                        <td>{{ user.first_name }} {{ user.last_name }}</td>
+                        <td>{{ user.get_full_name }}</td>
                         <td>{{ user.date_joined }}</td>
                         <td>
-                            <p><a href="{% url 'user_update' user.id %}">Изменить</a></p>
-                            <p><a href="{% url 'user_delete' user.id %}">Удалить</a></p>
+                            <p><a href="{% url 'user_update' user.id %}">{% trans 'Update' %}</a></p>
+                            <p><a href="{% url 'user_delete' user.id %}">{% trans 'Delete' %}</a></p>
                         </td>
                     </tr>
-            {% endfor %}
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

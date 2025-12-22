@@ -14,8 +14,10 @@ migrations:
 	uv run manage.py makemigrations
 	uv run manage.py migrate
 
-messages:
+message-make:
 	uv run django-admin makemessages -l ru
+
+message-compile:
 	uv run django-admin compilemessages
 
 lint:
