@@ -1,17 +1,21 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
-
+{% load i18n %}
 {% block title %}TMbf Delete User{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mx-auto">
-            <h1>Удаление пользователя</h1>
+            <h1>{% trans 'Delete user' %}</h1>
             <form action="{% url 'user_delete' user.id %}" method="post">
                 {% csrf_token %}
-                <p class="mb-3">Вы уверены, что хотите удалить {{ user.first_name }} {{ user.last_name }}?</p>
-                <button type="submit" class="btn btn-danger">Да, удалить</button>
+                <p class="mb-3">
+                    {% trans user.get_full_name as full_name %}
+                    {% blocktrans %}
+                        Are you sure you want to delete user {{ full_name }}?
+                    {% endblocktrans %}</p>
+                <button type="submit" class="btn btn-danger">{% trans 'Delete' %}</button>
             </form>
         </div>
     </div>
