@@ -14,6 +14,7 @@ class TasksTest(TestCase):
         'tasks.json',
         'users.json',
         'statuses.json',
+        'labels.json',
         ]
     
     def setUp(self): 
@@ -23,7 +24,7 @@ class TasksTest(TestCase):
         self.admin_user = self.User.objects.get(pk=1)
         self.client.force_login(self.admin_user) 
 
-        self.test_task = Task.objects.get(pk=19)
+        self.test_task = Task.objects.get(pk=34)
 
     def test_task_list(self):
         response = self.client.get(self.task_list_url)
@@ -45,7 +46,8 @@ class TasksTest(TestCase):
             "description": "opkooiopsaads",
             "status": 9,
             "creator": 1,
-            "executor": 14,
+            "executor": 11,
+            "labels": [4, ],
             }
         response = self.client.post(create_url, new_task)
         self.assertEqual(response.status_code, 302)  # 302 redirect
@@ -62,16 +64,17 @@ class TasksTest(TestCase):
 
         task_dict = model_to_dict(
             self.test_task,
-            fields=['name', 'description', 'status', 'executor']
+            fields=['name', 'description', 'status', 'executor', 'labels', ]
             )
         task_dict['name'] = 'failllllllzzz'
+        task_dict['labels'] = [label.pk for label in self.test_task.labels.all()]
         response = self.client.post(update_url, task_dict)
         self.assertEqual(response.status_code, 302)
  
         response = self.client.get(self.task_list_url)
         self.assertTrue(Task.objects.filter(name='failllllllzzz').exists())
         self.assertContains(response, 'failllllllzzz')
-        self.assertNotContains(response, '[p[p[p[ppp')  # previous value
+        self.assertNotContains(response, 'fklgkl')  # previous value
 
     def test_task_delete(self):
         delete_url = reverse('task_delete', kwargs={'pk': self.test_task.pk})
@@ -83,7 +86,7 @@ class TasksTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
         response = self.client.get(self.task_list_url)
-        self.assertNotContains(response, 'asdasdzzzzzzz')
+        self.assertNotContains(response, 'fklgkl')
 
 
     
