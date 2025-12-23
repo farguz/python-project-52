@@ -47,7 +47,7 @@ class UsersTest(TestCase):
         self.assertTrue(self.User.objects.filter(username='kitty_meow_90').exists())  # database
 
     def test_user_update(self):
-        update_url = reverse('user_update', kwargs={'id': self.test_user.pk})
+        update_url = reverse('user_update', kwargs={'pk': self.test_user.pk})
 
         response = self.client.get(update_url)
         self.assertEqual(response.status_code, 200)
@@ -62,7 +62,7 @@ class UsersTest(TestCase):
         self.assertNotContains(response, 'janettttty')  # previous first_name
 
     def test_user_delete(self):
-        delete_url = reverse('user_delete', kwargs={'id': self.test_user.pk})
+        delete_url = reverse('user_delete', kwargs={'pk': self.test_user.pk})
 
         response = self.client.get(delete_url)
         self.assertEqual(response.status_code, 200)

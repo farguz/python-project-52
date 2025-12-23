@@ -48,7 +48,7 @@ class StatusesTest(TestCase):
         self.assertTrue(Status.objects.filter(name='in progresssss').exists())  # database
 
     def test_status_update(self):
-        update_url = reverse('status_update', kwargs={'id': self.test_status.pk})
+        update_url = reverse('status_update', kwargs={'pk': self.test_status.pk})
 
         response = self.client.get(update_url)
         self.assertEqual(response.status_code, 200)
@@ -63,7 +63,7 @@ class StatusesTest(TestCase):
         self.assertNotContains(response, 'asdasdzzzzzzz')  # asdasdzzzzzzz - previous value
 
     def test_status_delete(self):
-        delete_url = reverse('status_delete', kwargs={'id': self.test_status.pk})
+        delete_url = reverse('status_delete', kwargs={'pk': self.test_status.pk})
 
         response = self.client.get(delete_url)
         self.assertEqual(response.status_code, 200)
