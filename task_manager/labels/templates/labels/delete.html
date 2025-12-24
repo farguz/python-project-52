@@ -1,17 +1,21 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
-
-{% block title %}TMbf Delete Label{% endblock %}
+{% load i18n %}
 
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mx-auto">
-            <h1>Удаление метки</h1>
+            <h1>{% trans 'Delete label' %}</h1>
             <form action="{% url 'label_delete' label.id %}" method="post">
                 {% csrf_token %}
-                <p class="mb-3">Вы уверены, что хотите удалить метку {{ label.name }}?</p>
-                <button type="submit" class="btn btn-danger">Да, удалить</button>
+                <p class="mb-3">
+                    {% trans label.name as label %}
+                    {% blocktrans %}
+                        Are you sure you want to delete label {{ label }}?
+                    {% endblocktrans %}
+                </p>
+                <button type="submit" class="btn btn-danger">{% trans 'Delete' %}</button>
             </form>
         </div>
     </div>
