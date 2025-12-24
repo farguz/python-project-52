@@ -1,24 +1,17 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
-
-{% block title %}TMbf Login Page{% endblock %}
+{% load i18n %}
 
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mx-auto">
-            <h1>Вход</h1>
-            <form action="{% url 'login' %}" method="post">
+            <h1>{% trans 'Login' %}</h1>
+            <form method="post" class="form">
                 {% csrf_token %}
-                <div class="mb-3">
-                    <label class="form-label" for="id_username">Имя пользователя</label>
-                    <input type="text" class="form-control" id="id_username" name="username" placeholder="Имя пользователя">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="id_password">Пароль</label>
-                    <input type="password" class="form-control" id="id_password" name="password" placeholder="Пароль">
-                </div>
-                <button type="submit" class="btn btn-primary">Войти</button>
+
+                {% bootstrap_form form %}
+                {% bootstrap_button button_type="submit" content=_('Login') %}
             </form>
         </div>
     </div>

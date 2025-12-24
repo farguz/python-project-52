@@ -1,37 +1,38 @@
+{% load i18n %}
 {% block header %}
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'index_page' %}">Менеджер задач</a>
+            <a class="navbar-brand" href="{% url 'index_page' %}">{% trans 'Task Manager' %}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'user_list' %}">Пользователи</a>
+                        <a class="nav-link" href="{% url 'user_list' %}">{% trans 'Users' %}</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'status_list' %}">Статусы</a>
+                        <a class="nav-link" href="{% url 'status_list' %}">{% trans 'Statuses' %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'label_list' %}">Метки</a>
+                        <a class="nav-link" href="{% url 'label_list' %}">{% trans 'Labels' %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'task_list' %}">Задачи</a>
+                        <a class="nav-link" href="{% url 'task_list' %}">{% trans 'Tasks' %}</a>
                     </li>
                     <li class="nav-item">
                         <form method="post" action="{% url 'logout' %}" class="nav-link">
                             {% csrf_token %}
-                            <button type="submit" class="dropdown-item">Выход</button>
+                            <button type="submit" class="dropdown-item">{% trans 'Logout' %}</button>
                         </form>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Вход</a>
+                        <a class="nav-link" href="{% url 'login' %}">{% trans 'Login' %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'user_create' %}">Регистрация</a>
+                        <a class="nav-link" href="{% url 'user_create' %}">{% trans 'Registration' %}</a>
                     </li>
                     {% endif %}
                 </ul>
