@@ -1,63 +1,17 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
-
-{% block title %}TMbf Update Task{% endblock %}
+{% load i18n %}
 
 {% block content %}
-
-{% if form.errors %}
-<div>
-    <ul>
-    {% for error in form.errors %}
-        <li><strong>{{ error|escape }}</strong></li>
-    {% endfor %}
-    </ul>
-</div>
-{% endif %}
-
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mx-auto">
-            <h1> Изменение задачи</h1>
-            <form action="{% url 'task_update' task.id %}" method="post">
+            <h1>{% trans 'Update task' %}</h1>
+            <form method="post" class="form">
                 {% csrf_token %}
-                <div class="mb-3">
-                    <label class="form-label" for="id_name">Имя</label>
-                    <input type="text" class="form-control" id="id_name" name="name" value="{{ task.name }}">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="id_description">Описание</label>
-                    <input type="text" class="form-control" id="id_description" name="description" value="{{ task.description }}">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="id_status">Статус</label>
-                    <select class="form-select" select id="id_status" name="status">
-                        <option value="{{ task.status.id }}">{{ task.status.name }}</option>
-                        {% for status in statuses %}
-                        <option value="{{ status.id }}">{{ status.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="id_executor">Исполнитель</label>
-                    <select class="form-select" select id="id_executor" name="executor">
-                        <option value="{{ task.executor.id }}">{{ task.executor.first_name }} {{ task.executor.last_name }}</option>
-                        {% for user in users %}
-                        <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="id_labels">Метки</label>
-                    <select class="form-select" id="id_labels" name="labels" multiple="">
-                        {% for label in labels %}
-                        <option value="{{ label.pk }}" {% if label in task.labels.all %}selected{% endif %}>
-                            {{ label.name }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Изменить</button>
+
+                {% bootstrap_form form %}
+                {% bootstrap_button button_type="submit" content=_('Update') %}
             </form>
         </div>
     </div>

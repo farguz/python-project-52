@@ -1,47 +1,46 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
-
-{% block title %}TMbf Task Details{% endblock %}
+{% load i18n %}
 
 {% block content %}
-<h1>Просмотр задачи</h1>    
 <div class="container">
+    <h1>{% trans 'Task details' %}</h1>  
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">{{ task.name }}</h5>
             <p class="card-text">{{ task.description }}</p>
             <div class="container text-left">
                 <div class="row">
-                    <div class="col">Автор</div>
-                    <div class="col">{{ task.creator.first_name }} {{ task.creator.last_name }}</div>
+                    <div class="col">{% trans 'Creator' %}</div>
+                    <div class="col">{{ task.creator.get_full_name }}</div>
                 </div>
                 <div class="row">
-                    <div class="col">Исполнитель</div>
+                    <div class="col">{% trans 'Executor' %}</div>
                     <div class="col">{{ task.executor.first_name }} {{ task.executor.last_name }}</div>
                 </div>
                 <div class="row">
-                    <div class="col">Статус</div>
+                    <div class="col">{% trans 'Status' %}</div>
                     <div class="col">{{ task.status.name }}</div>
                 </div>
                 <div class="row">
-                    <div class="col">Дата создания</div>
+                    <div class="col">{% trans 'Creation date' %}</div>
                     <div class="col">{{ task.created_at }}</div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        Метки
+                        {% trans 'Labels' %}
                         <ul>
                             {% for label in task.labels.all %}
                                 <li>{{ label.name }}</li>
                             {% empty %}
-                                <li>Метки не назначены</li>
+                                <li>No label set</li>
                             {% endfor %}
                         </ul>
                     </div>
                 </div>
             </div>
-            <a href="{% url 'task_update' task.id %}"><p>Изменить</p></a>
-            <a href="{% url 'task_delete' task.id %}"><p>Удалить</p></a>
+            <a href="{% url 'task_update' task.id %}"><p>{% trans 'Update' %}</p></a>
+            <a href="{% url 'task_delete' task.id %}"><p>{% trans 'Delete' %}</p></a>
         </div>
     </div>
 </div>

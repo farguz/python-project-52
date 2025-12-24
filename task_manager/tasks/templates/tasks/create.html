@@ -1,78 +1,16 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
-
-{% block title %}TMbf Create Task{% endblock %}
+{% load i18n %}
 
 {% block content %}
-
-{% if form.errors %}
-<div>
-    <ul>
-    {% for error in form.errors %}
-        <li><strong>{{ error|escape }}</strong></li>
-    {% endfor %}
-    </ul>
-</div>
-{% endif %}
-
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mx-auto">
-            <h1> Создать задачу</h1>
+            <h1>{% trans 'Create task' %}</h1>
             <form action="{% url 'task_create' %}" method="post">
                 {% csrf_token %}
-                <div class="mb-3">
-                    <label class="form-label" for="id_name">Имя</label>
-                    <input type="text" class="form-control" id="id_name" name="name"
-                        placeholder="Имя" value="{{ form.name.value|default:''}}">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="id_description">Описание</label>
-                    <input type="text" class="form-control" id="id_description" name="description"
-                        placeholder="Описание" value="{{ form.description.value|default:''}}">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="id_status">Статус</label>
-                    <select class="form-select" select id="id_status" name="status">
-                        <option>(не назначен)</option>
-                        {% for status in statuses %}
-                        <option value="{{ status.pk }}"
-                            {% if form.status.value|stringformat:"s" == status.pk|stringformat:"s" %}
-                                selected
-                            {% endif %}>
-                            {{ status.name }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="id_executor">Исполнитель</label>
-                    <select class="form-select" select id="id_executor" name="executor">
-                        <option>(не назначен)</option>
-                        {% for user in users %}
-                        <option value="{{ user.pk }}"
-                            {% if form.executor.value|stringformat:"s" == user.pk|stringformat:"s" %}
-                                selected
-                            {% endif %}>
-                            {{ user.first_name }} {{ user.last_name }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="id_labels">Метки</label>
-                    <select type="checkbox" class="form-select" id="id_labels" name="labels" multiple="">
-                        {% for label in labels %}
-                        <option value="{{ label.pk }}"
-                            {% if label.pk|stringformat:"s" in form.labels.value|join:"," %}
-                                selected
-                            {% endif %}>
-                            {{ label.name }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Создать</button>
+                {% bootstrap_form form %}
+                {% bootstrap_button button_type="submit" content=_('Create') %}
             </form>
         </div>
     </div>

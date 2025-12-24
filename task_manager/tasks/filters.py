@@ -1,6 +1,7 @@
 import django_filters
 from django import forms
 from django.contrib.auth import get_user_model
+from django.utils.translation import gettext_lazy as _
 
 from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
@@ -16,31 +17,29 @@ class TaskFilter(django_filters.FilterSet):
 
     executor = django_filters.ModelChoiceFilter(
         queryset=users,
-        empty_label='Все исполнители',
+        empty_label=_('Any executor'),
         widget=forms.Select(attrs={'class': 'form-select'})
     )
     
     status = django_filters.ModelChoiceFilter(
         queryset=statuses,
-        empty_label='Все статусы',
+        empty_label=_('Any status'),
         widget=forms.Select(attrs={'class': 'form-select'})
     )
     
     labels = django_filters.ModelChoiceFilter(
         queryset=labels_list,
-        empty_label='Все метки',
+        empty_label=_('Any label'),
         widget=forms.Select(attrs={'class': 'form-select'})
     )
     
     tasks_by_me = django_filters.BooleanFilter(
         method='filter_tasks_by_me',
-        label='Я постановщик задачи',
         widget=forms.CheckboxInput()
     )
 
     tasks_for_me = django_filters.BooleanFilter(
         method='filter_tasks_for_me',
-        label='Я исполнитель задачи',
         widget=forms.CheckboxInput()
     )
     

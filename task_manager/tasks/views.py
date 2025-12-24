@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_filters.views import FilterView
@@ -44,7 +45,7 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
         task = form.save(commit=False)
         task.creator = self.request.user
         task.save()
-        messages.success(self.request, 'Задача успешно создана')
+        messages.success(self.request, _('Task created successfully'))
         response = super().form_valid(form)
         return response
     
@@ -65,7 +66,7 @@ class UpdateTaskView(LoginRequiredMixin, UpdateView):
     
     def form_valid(self, form):
         response = super().form_valid(form)
-        messages.success(self.request, 'Задача успешно изменена')
+        messages.success(self.request, _('Task updated successfully'))
         return response
     
 
@@ -79,7 +80,7 @@ class DeleteTaskView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user == task.creator or self.request.user.is_superuser
 
     def get_success_url(self):
-        messages.success(self.request, 'Задача успешно удалена')
+        messages.success(self.request, _('Task deleted successfully'))
         return super().get_success_url()
     
 
