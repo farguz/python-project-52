@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 from .forms import LoginForm
 
@@ -20,7 +21,7 @@ class TaskManagerLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        messages.success(self.request, 'Вы успешно вошли в систему!')
+        messages.success(self.request, _('Login successful'))
         return reverse_lazy('index_page')
          
 
@@ -29,5 +30,5 @@ class TaskManagerLogoutView(LoginRequiredMixin, LogoutView):
     next_page = reverse_lazy('index_page')
 
     def post(self, request, *args, **kwargs):
-        messages.success(request, 'Вы успешно вышли из профиля!')
+        messages.success(request, _('Logout successful'))
         return super().post(request, *args, **kwargs)
