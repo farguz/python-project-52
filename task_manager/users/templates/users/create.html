@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
 {% load i18n %}
-{% block title %}TMbf Registration{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -17,7 +16,7 @@
                 {% bootstrap_field form.password1 %}
                 {% bootstrap_field form.password2 %}
 
-                {% bootstrap_button button_type="submit" content=_("Register") %}
+                {% bootstrap_button button_type="submit" content=_('Register') %}
             </form>
         </div>
     </div>

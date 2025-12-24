@@ -1,7 +1,8 @@
 from django.contrib import messages
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
@@ -24,7 +25,7 @@ class RegistrationView(CreateView):
     success_url = reverse_lazy('login')
 
     def get_success_url(self):
-        messages.success(self.request, 'Пользователь успешно создан')
+        messages.success(self.request, _('User created successfully'))
         return super().get_success_url()
 
 
@@ -40,8 +41,17 @@ class UpdateUserView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return self.request.user == user or self.request.user.is_superuser
     
     def get_success_url(self):
-        messages.success(self.request, 'Пользователь успешно обновлен')
+        messages.success(self.request, _('User updated successfully'))
         return super().get_success_url()
+    
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        password = form.cleaned_data.get('password')
+        if password:
+            user.set_password(password)
+        user.save()
+        update_session_auth_hash(self.request, user)
+        return super().form_valid(form)
 
 
 class DeleteUserView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -56,6 +66,6 @@ class DeleteUserView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user == user or self.request.user.is_superuser
 
     def get_success_url(self):
-        messages.success(self.request, 'Пользователь успешно удален')
+        messages.success(self.request, _('User deleted successfully'))
         return super().get_success_url()
     

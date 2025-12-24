@@ -2,8 +2,6 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-# Create your tests here.
-
 
 class UsersTest(TestCase):
 
@@ -52,8 +50,11 @@ class UsersTest(TestCase):
         response = self.client.get(update_url)
         self.assertEqual(response.status_code, 200)
 
-        user_to_update = {key: value for key, value in self.test_user.__dict__.items() if value}
-        updated_user = {**user_to_update, 'first_name': 'Bobbbbzzy'}
+        updated_user = {
+            'first_name': 'Bobbbbzzy',
+            'last_name': self.test_user.last_name,
+            'username': self.test_user.username,
+            }
         response = self.client.post(update_url, updated_user)
         self.assertEqual(response.status_code, 302)
 
