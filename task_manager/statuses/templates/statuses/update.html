@@ -1,31 +1,17 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
-
-{% block title %}TMbf Update Status{% endblock %}
+{% load i18n %}
 
 {% block content %}
-
-{% if form.errors %}
-<div>
-    <ul>
-    {% for error in form.errors %}
-        <li><strong>{{ error|escape }}</strong></li>
-    {% endfor %}
-    </ul>
-</div>
-{% endif %}
-
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mx-auto">
-            <h1>Изменение статуса</h1>
-            <form action="{% url 'status_update' status.id %}" method="post">
+            <h1>{% trans 'Update status' %}</h1>
+            <form method="post" class="form">
                 {% csrf_token %}
-                <div class="mb-3">
-                    <label class="form-label" for="id_name">Имя</label>
-                    <input type="text" class="form-control" id="id_name" name="name" value="{{ status.name }}">
-                </div>
-                <button type="submit" class="btn btn-primary">Изменить</button>
+
+                {% bootstrap_form form %}
+                {% bootstrap_button button_type="submit" content=_('Update') %}
             </form>
         </div>
     </div>

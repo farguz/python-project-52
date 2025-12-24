@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
@@ -9,7 +10,6 @@ from .forms import StatusesCreationForm, StatusesUpdateForm
 from .models import Status
 
 
-# Create your views here.
 class IndexStatusView(LoginRequiredMixin, ListView):
     model = Status
     template_name = 'statuses/index.html'
@@ -24,7 +24,7 @@ class CreateStatusView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('status_list')
 
     def get_success_url(self):
-        messages.success(self.request, 'Статус успешно создан')
+        messages.success(self.request, _('Status created successfully'))
         return super().get_success_url()
       
 
@@ -37,7 +37,7 @@ class UpdateStatusView(LoginRequiredMixin, UpdateView):
     context_object_name = 'status'
    
     def get_success_url(self):
-        messages.success(self.request, 'Статус успешно обновлен')
+        messages.success(self.request, _('Status updated successfully'))
         return super().get_success_url()
     
     
@@ -49,7 +49,7 @@ class DeleteStatusView(LoginRequiredMixin, DeleteView):
     context_object_name = 'status'
 
     def get_success_url(self):
-        messages.success(self.request, 'Статус успешно удален')
+        messages.success(self.request, _('Status deleted successfully'))
         return super().get_success_url()
           
     def form_valid(self, form):
@@ -57,7 +57,7 @@ class DeleteStatusView(LoginRequiredMixin, DeleteView):
         if self.status.task_set.exists():
             messages.error(
                 self.request,
-                'Невозможно удалить статус, потому что он используется в задачах'
+                _("The status cannot be deleted since it's tied with other tasks")
                 )
             return redirect('status_list')
             
