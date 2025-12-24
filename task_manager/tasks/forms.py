@@ -14,13 +14,13 @@ class TaskCreationForm(ModelForm):
 
     status = forms.ModelChoiceField(
         queryset=Status.objects.all(),
-        empty_label=_('(не назначен)'),
+        empty_label=_('(not set)'),
         widget=forms.Select(),
     )
     
     executor = forms.ModelChoiceField(
         queryset=User.objects.all(),
-        empty_label=_('(не назначен)'),
+        empty_label=_('(not set)'),
         widget=forms.Select(),
     )
 
