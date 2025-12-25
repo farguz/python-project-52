@@ -8,9 +8,6 @@ from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_filters.views import FilterView
 
-from task_manager.labels.models import Label
-from task_manager.statuses.models import Status
-
 from .filters import TaskFilter
 from .forms import TaskCreationForm, TaskUpdateForm
 from .models import Task
@@ -33,14 +30,6 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
     form_class = TaskCreationForm
     template_name = 'tasks/create.html'
     success_url = reverse_lazy('task_list')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tasks'] = Task.objects.all()
-        context['users'] = User.objects.all()
-        context['statuses'] = Status.objects.all()
-        context['labels'] = Label.objects.all()
-        return context
     
     def form_valid(self, form):
         task = form.save(commit=False)
@@ -57,14 +46,6 @@ class UpdateTaskView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'tasks/update.html'
     success_url = reverse_lazy('task_list')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tasks'] = Task.objects.all()
-        context['users'] = User.objects.all()
-        context['statuses'] = Status.objects.all()
-        context['labels'] = Label.objects.all()
-        return context
-    
     def test_func(self):
         task = self.get_object()
         return self.request.user == task.creator or self.request.user.is_superuser
