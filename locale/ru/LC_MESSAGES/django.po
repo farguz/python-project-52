@@ -23,7 +23,7 @@ msgstr ""
 #: task_manager/labels/templates/labels/create.html:9
 #: task_manager/labels/templates/labels/index.html:10
 msgid "Create label"
-msgstr ""
+msgstr "Создать метку"
 
 #: task_manager/labels/templates/labels/create.html:14
 #: task_manager/statuses/templates/statuses/create.html:14
