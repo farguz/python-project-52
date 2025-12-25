@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
@@ -50,7 +51,7 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
         return response
     
 
-class UpdateTaskView(LoginRequiredMixin, UpdateView):
+class UpdateTaskView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Task
     form_class = TaskUpdateForm
     template_name = 'tasks/update.html'
@@ -64,10 +65,18 @@ class UpdateTaskView(LoginRequiredMixin, UpdateView):
         context['labels'] = Label.objects.all()
         return context
     
+    def test_func(self):
+        task = self.get_object()
+        return self.request.user == task.creator or self.request.user.is_superuser
+    
     def form_valid(self, form):
         response = super().form_valid(form)
         messages.success(self.request, _('Task updated successfully'))
         return response
+    
+    def handle_no_permission(self):
+        messages.error(self.request, _('Forbidden. Not enough rights to edit this task'))
+        return redirect('task_list')
     
 
 class DeleteTaskView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -82,6 +91,10 @@ class DeleteTaskView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def get_success_url(self):
         messages.success(self.request, _('Task deleted successfully'))
         return super().get_success_url()
+    
+    def handle_no_permission(self):
+        messages.error(self.request, _('Forbidden. Not enough rights to delete this task'))
+        return redirect('task_list')
     
 
 class DetailTaskView(LoginRequiredMixin, DetailView):

@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
@@ -44,6 +45,10 @@ class UpdateUserView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         messages.success(self.request, _('User updated successfully'))
         return super().get_success_url()
     
+    def handle_no_permission(self):
+        messages.error(self.request, _('Forbidden. Not enough rights to edit this user'))
+        return redirect('user_list')
+    
     def form_valid(self, form):
         user = form.save(commit=False)
         password = form.cleaned_data.get('password')
@@ -68,4 +73,8 @@ class DeleteUserView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def get_success_url(self):
         messages.success(self.request, _('User deleted successfully'))
         return super().get_success_url()
+    
+    def handle_no_permission(self):
+        messages.error(self.request, _('Forbidden. Not enough rights to delete this user'))
+        return redirect('user_list')
     
