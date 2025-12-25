@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-25 12:30+0300\n"
+"POT-Creation-Date: 2025-12-25 14:42+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,28 +51,29 @@ msgstr ""
 #: task_manager/statuses/templates/statuses/delete.html:18
 #: task_manager/statuses/templates/statuses/index.html:28
 #: task_manager/tasks/templates/tasks/delete.html:17
-#: task_manager/tasks/templates/tasks/detail.html:43
-#: task_manager/tasks/templates/tasks/index.html:67
+#: task_manager/tasks/templates/tasks/detail.html:46
+#: task_manager/tasks/templates/tasks/index.html:66
 #: task_manager/users/templates/users/delete.html:17
 #: task_manager/users/templates/users/index.html:31
 msgid "Delete"
 msgstr "Удалить"
 
 #: task_manager/labels/templates/labels/index.html:9
-#: task_manager/tasks/templates/tasks/detail.html:31 templates/header.html:19
+#: task_manager/tasks/templates/tasks/detail.html:32 templates/header.html:19
 msgid "Labels"
 msgstr "Метки"
 
 #: task_manager/labels/templates/labels/index.html:15
 #: task_manager/statuses/templates/statuses/index.html:15
-#: task_manager/tasks/templates/tasks/index.html:48
+#: task_manager/tasks/templates/tasks/detail.html:10
+#: task_manager/tasks/templates/tasks/index.html:46
 msgid "Name"
 msgstr "Наименование"
 
 #: task_manager/labels/templates/labels/index.html:16
 #: task_manager/statuses/templates/statuses/index.html:16
-#: task_manager/tasks/templates/tasks/detail.html:26
-#: task_manager/tasks/templates/tasks/index.html:52
+#: task_manager/tasks/templates/tasks/detail.html:27
+#: task_manager/tasks/templates/tasks/index.html:50
 msgid "Creation date"
 msgstr "Дата создания"
 
@@ -80,8 +81,8 @@ msgstr "Дата создания"
 #: task_manager/labels/templates/labels/update.html:14
 #: task_manager/statuses/templates/statuses/index.html:27
 #: task_manager/statuses/templates/statuses/update.html:14
-#: task_manager/tasks/templates/tasks/detail.html:42
-#: task_manager/tasks/templates/tasks/index.html:66
+#: task_manager/tasks/templates/tasks/detail.html:44
+#: task_manager/tasks/templates/tasks/index.html:64
 #: task_manager/tasks/templates/tasks/update.html:14
 #: task_manager/users/templates/users/index.html:30
 #: task_manager/users/templates/users/update.html:14
@@ -178,7 +179,7 @@ msgid "(not set)"
 msgstr "(не назначен)"
 
 #: task_manager/tasks/templates/tasks/create.html:9
-#: task_manager/tasks/templates/tasks/index.html:43
+#: task_manager/tasks/templates/tasks/index.html:41
 msgid "Create task"
 msgstr "Создать задачу"
 
@@ -201,22 +202,32 @@ msgstr ""
 msgid "Task details"
 msgstr "Подробности задачи"
 
-#: task_manager/tasks/templates/tasks/detail.html:14
-#: task_manager/tasks/templates/tasks/index.html:50
+#: task_manager/tasks/templates/tasks/detail.html:11
+#, fuzzy
+#| msgid "Registration"
+msgid "Description"
+msgstr "Описание"
+
+#: task_manager/tasks/templates/tasks/detail.html:15
+#: task_manager/tasks/templates/tasks/index.html:48
 msgid "Creator"
 msgstr "Создатель"
 
-#: task_manager/tasks/templates/tasks/detail.html:18
+#: task_manager/tasks/templates/tasks/detail.html:19
 #: task_manager/tasks/templates/tasks/index.html:12
-#: task_manager/tasks/templates/tasks/index.html:51
+#: task_manager/tasks/templates/tasks/index.html:49
 msgid "Executor"
 msgstr "Исполнитель"
 
-#: task_manager/tasks/templates/tasks/detail.html:22
+#: task_manager/tasks/templates/tasks/detail.html:23
 #: task_manager/tasks/templates/tasks/index.html:16
-#: task_manager/tasks/templates/tasks/index.html:49
+#: task_manager/tasks/templates/tasks/index.html:47
 msgid "Status"
 msgstr "Статус"
+
+#: task_manager/tasks/templates/tasks/detail.html:37
+msgid "No label set"
+msgstr "Меток нет"
 
 #: task_manager/tasks/templates/tasks/index.html:20
 msgid "Label"
@@ -234,7 +245,7 @@ msgstr "Я исполнитель задачи"
 msgid "Apply"
 msgstr "Применить"
 
-#: task_manager/tasks/templates/tasks/index.html:42 templates/header.html:22
+#: task_manager/tasks/templates/tasks/index.html:40 templates/header.html:22
 msgid "Tasks"
 msgstr "Задачи"
 
