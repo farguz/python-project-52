@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import sys
+
 import dj_database_url
 from django.utils.translation import gettext_lazy as _
 
@@ -154,3 +156,6 @@ ROLLBAR = {
     'code_version': '1.0',
     'root': BASE_DIR,
 }
+
+if 'test' in sys.argv:
+    ROLLBAR = {}
