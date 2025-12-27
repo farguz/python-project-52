@@ -15,9 +15,11 @@ Deployed version [here](https://task-manager-by-farguz.onrender.com/) (render.co
 - Python
 - Django
 - Bootstrap 5
+- PostgreSQL
 - uv
 - ruff
-- django-filter
+- Rollbar
+- WhiteNoise 
 - python-dotenv
 
 ## Setup and Installation
