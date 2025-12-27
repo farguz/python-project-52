@@ -1,5 +1,6 @@
 {% load django_bootstrap5 %}
 {% load i18n %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +12,7 @@
             {% trans 'Task Manager' %}
         {% endblock %}
     </title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     {% bootstrap_css %}
 </head>
 

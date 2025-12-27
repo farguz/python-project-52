@@ -20,6 +20,9 @@ message-make:
 message-compile:
 	uv run django-admin compilemessages
 
+collect-static:
+	uv run manage.py collectstatic
+
 lint:
 	uv run ruff check
 
