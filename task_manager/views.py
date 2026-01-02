@@ -4,10 +4,11 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_GET
 
 from .forms import LoginForm
 
-
+@require_GET
 def index(request):
     return render(
         request,
