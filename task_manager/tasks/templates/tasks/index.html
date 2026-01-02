@@ -9,24 +9,34 @@
             <form method="get" class="mb-3">
                 <div class="row">
                     <div class="col-md-3">
-                        <label>{% trans 'Executor' %}</label>
-                        {{ filter.form.executor }}
+                        <label>
+                            {% trans 'Executor' %}
+                            {{ filter.form.executor }}
+                        </label>
                     </div>
                     <div class="col-md-3">
-                        <label>{% trans 'Status' %}</label>
-                        {{ filter.form.status }}
+                        <label>
+                            {% trans 'Status' %}
+                            {{ filter.form.status }}
+                        </label>
                     </div>
                     <div class="col-md-3">
-                        <label>{% trans 'Label' %}</label>
-                        {{ filter.form.labels }}
+                        <label>
+                            {% trans 'Label' %}
+                            {{ filter.form.labels }}
+                        </label>
                     </div>
                     <div class="form-check">
-                        {{ filter.form.tasks_by_me }}
-                        <label class="form-check-label">{% trans "I'm task creator" %}</label>
+                        <label class="form-check-label">
+                            {{ filter.form.tasks_by_me }}
+                            {% trans "I'm task creator" %}
+                        </label>
                     </div>
                     <div class="form-check">
-                        {{ filter.form.tasks_for_me }}
-                        <label class="form-check-label">{% trans "I'm task executor" %}</label>
+                        <label class="form-check-label">
+                            {{ filter.form.tasks_for_me }}
+                            {% trans "I'm task executor" %}
+                        </label>
                     </div>
                     <div class="col-md-3 d-flex align-items-end">
                         <button type="submit" class="btn btn-primary">{% trans 'Apply' %}</button>

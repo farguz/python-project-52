@@ -40,9 +40,8 @@ class CustomUserChangeForm(UserChangeForm):
         password = cleaned_data.get('password')
         confirm_password = cleaned_data.get('confirm_password')
 
-        if password or confirm_password:
-            if password != confirm_password:
-                raise forms.ValidationError(_('Passwords are not the same'))
+        if (password or confirm_password) and password != confirm_password:
+            raise forms.ValidationError(_('Passwords are not the same'))
         return cleaned_data
 
     class Meta:
