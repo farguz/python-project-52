@@ -8,6 +8,7 @@ from django.views.decorators.http import require_GET
 
 from .forms import LoginForm
 
+
 @require_GET
 def index(request):
     return render(
