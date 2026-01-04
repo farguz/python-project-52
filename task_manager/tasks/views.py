@@ -1,12 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_filters.views import FilterView
+
+from task_manager.mixins import BasePermissionMixin
 
 from .filters import TaskFilter
 from .forms import TaskCreationForm, TaskUpdateForm
@@ -40,11 +41,13 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
         return response
     
 
-class UpdateTaskView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class UpdateTaskView(BasePermissionMixin, UpdateView):
     model = Task
     form_class = TaskUpdateForm
     template_name = 'tasks/update.html'
     success_url = reverse_lazy('task_list')
+    error_redirect_url = reverse_lazy('task_list')
+    permission_denied_message = _('Forbidden. Not enough rights to edit this task')
 
     def test_func(self):
         task = self.get_object()
@@ -55,15 +58,13 @@ class UpdateTaskView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         messages.success(self.request, _('Task updated successfully'))
         return response
     
-    def handle_no_permission(self):
-        messages.error(self.request, _('Forbidden. Not enough rights to edit this task'))
-        return redirect('task_list')
-    
 
-class DeleteTaskView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class DeleteTaskView(BasePermissionMixin, DeleteView):
     model = Task
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy('task_list')
+    error_redirect_url = reverse_lazy('task_list')
+    permission_denied_message = _('Forbidden. Not enough rights to delete this task')
     
     def test_func(self):
         task = self.get_object()
@@ -72,10 +73,6 @@ class DeleteTaskView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def get_success_url(self):
         messages.success(self.request, _('Task deleted successfully'))
         return super().get_success_url()
-    
-    def handle_no_permission(self):
-        messages.error(self.request, _('Forbidden. Not enough rights to delete this task'))
-        return redirect('task_list')
     
 
 class DetailTaskView(LoginRequiredMixin, DetailView):
