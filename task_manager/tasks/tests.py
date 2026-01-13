@@ -9,7 +9,11 @@ from .models import Task
 
 
 class TasksTest(TestCase):
-
+    '''
+    any user can modify any task
+    only task creator or admin can delete task
+    '''
+    
     fixtures = [
         'tasks.json',
         'users.json',
@@ -86,7 +90,4 @@ class TasksTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
         response = self.client.get(self.task_list_url)
-        self.assertNotContains(response, 'fklgkl')
-
-
-    
+        self.assertNotContains(response, 'fklgkl')    
