@@ -3,9 +3,10 @@ from django.forms.models import model_to_dict
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import Task
+from task_manager.labels.models import Label
+from task_manager.statuses.models import Status
 
-# Create your tests here.
+from .models import Task
 
 
 class TasksTest(TestCase):
@@ -25,10 +26,15 @@ class TasksTest(TestCase):
         self.task_list_url = reverse('task_list')
 
         self.User = get_user_model()
-        self.admin_user = self.User.objects.get(pk=1)
-        self.client.force_login(self.admin_user) 
+        self.test_user_creator = self.User.objects.get(pk=22)  # oopoipoipkkpo
+        self.test_user_not_creator = self.User.objects.get(pk=23)  # kdakldak
+        self.client.force_login(self.test_user_creator)
 
-        self.test_task = Task.objects.get(pk=34)
+        self.test_task = Task.objects.get(pk=32)  # afaadsafloteff
+        self.all_tasks = Task.objects.all()
+
+        self.test_label = Label.objects.get(pk=4)  # popopozzze
+        self.test_status = Status.objects.get(pk=9)  # asdasdaaaqqq
 
     def test_task_list(self):
         response = self.client.get(self.task_list_url)
@@ -78,7 +84,7 @@ class TasksTest(TestCase):
         response = self.client.get(self.task_list_url)
         self.assertTrue(Task.objects.filter(name='failllllllzzz').exists())
         self.assertContains(response, 'failllllllzzz')
-        self.assertNotContains(response, 'fklgkl')  # previous value
+        self.assertNotContains(response, 'afaadsafloteff')  # previous value
 
     def test_task_delete(self):
         delete_url = reverse('task_delete', kwargs={'pk': self.test_task.pk})
@@ -90,4 +96,49 @@ class TasksTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
         response = self.client.get(self.task_list_url)
-        self.assertNotContains(response, 'fklgkl')    
+        self.assertNotContains(response, 'afaadsafloteff')    
+
+    def test_task_filter_executor(self):
+        filter_data = {'executor': self.test_user_not_creator.pk}
+
+        response = self.client.get(self.task_list_url, filter_data)
+        self.assertEqual(response.status_code, 200)
+
+        tasks = response.context['tasks']
+        self.assertTrue(len(tasks) == 1)
+
+    def test_task_filter_status(self):
+        filter_data = {'status': self.test_status.pk}
+
+        response = self.client.get(self.task_list_url, filter_data)
+        self.assertEqual(response.status_code, 200)
+
+        tasks = response.context['tasks']
+        self.assertTrue(len(tasks) == 3)
+
+    def test_task_filter_label(self):
+        filter_data = {'labels': self.test_label.pk}
+
+        response = self.client.get(self.task_list_url, filter_data)
+        self.assertEqual(response.status_code, 200)
+
+        tasks = response.context['tasks']
+        self.assertTrue(len(tasks) == 11)
+
+    def test_task_filter_im_creator(self):
+        filter_data = {'creator': self.test_user_creator.pk}
+
+        response = self.client.get(self.task_list_url, filter_data)
+        self.assertEqual(response.status_code, 200)
+
+        tasks = response.context['tasks']
+        self.assertTrue(len(tasks) == 7)
+
+    def test_task_filter_im_executor(self):
+        filter_data = {'executor': self.test_user_creator.pk}
+
+        response = self.client.get(self.task_list_url, filter_data)
+        self.assertEqual(response.status_code, 200)
+
+        tasks = response.context['tasks']
+        self.assertTrue(len(tasks) == 3)
