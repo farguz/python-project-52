@@ -38,9 +38,11 @@
                             {% trans "I'm task executor" %}
                         </label>
                     </div>
-                    <div class="col-md-3 d-flex align-items-end">
+                    <div class="col-md-3 d-flex align-items-end gap-2">
                         <button type="submit" class="btn btn-primary">{% trans 'Apply' %}</button>
+                        <a href="{% url 'task_list' %}" class="btn btn-outline-secondary">{% trans 'Reset' %}</a>
                     </div>
+
                 </div>
             </form>
         </div>
