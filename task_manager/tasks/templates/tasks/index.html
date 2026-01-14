@@ -9,32 +9,32 @@
             <form method="get" class="mb-3">
                 <div class="row">
                     <div class="col-md-3">
-                        <label>
+                        <label for="{{ filter.form.executor.id_for_label }}">
                             {% trans 'Executor' %}
-                            {{ filter.form.executor }}
                         </label>
+                        {{ filter.form.executor }}
                     </div>
                     <div class="col-md-3">
-                        <label>
+                        <label for="{{ filter.form.status.id_for_label }}">
                             {% trans 'Status' %}
-                            {{ filter.form.status }}
                         </label>
+                        {{ filter.form.status }}
                     </div>
                     <div class="col-md-3">
-                        <label>
+                        <label for="{{ filter.form.labels.id_for_label }}">
                             {% trans 'Label' %}
-                            {{ filter.form.labels }}
                         </label>
+                        {{ filter.form.labels }}
                     </div>
                     <div class="form-check">
-                        <label class="form-check-label">
-                            {{ filter.form.tasks_by_me }}
+                        {{ filter.form.tasks_by_me }}
+                        <label class="form-check-label" for="{{ filter.form.tasks_by_me.id_for_label }}">
                             {% trans "I'm task creator" %}
                         </label>
                     </div>
                     <div class="form-check">
-                        <label class="form-check-label">
-                            {{ filter.form.tasks_for_me }}
+                        {{ filter.form.tasks_for_me }}
+                        <label class="form-check-label" for="{{ filter.form.tasks_for_me.id_for_label }}">
                             {% trans "I'm task executor" %}
                         </label>
                     </div>
