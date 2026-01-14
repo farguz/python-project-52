@@ -85,8 +85,10 @@ class TasksTest(TestCase):
         self.assertTrue(Task.objects.filter(name='failllllllzzz').exists())
         self.assertContains(response, 'failllllllzzz')
         self.assertNotContains(response, 'afaadsafloteff')  # previous value
+        self.assertTrue(Task.objects.filter(name='failllllllzzz').exists())
+        self.assertFalse(Task.objects.filter(name='afaadsafloteff').exists())
 
-    def test_task_delete(self):
+    def test_task_delete_by_creator(self):
         delete_url = reverse('task_delete', kwargs={'pk': self.test_task.pk})
 
         response = self.client.get(delete_url)
@@ -96,7 +98,20 @@ class TasksTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
         response = self.client.get(self.task_list_url)
-        self.assertNotContains(response, 'afaadsafloteff')    
+        self.assertNotContains(response, 'afaadsafloteff')  
+        self.assertFalse(Task.objects.filter(name='afaadsafloteff').exists())  
+
+    def test_task_delete_by_not_creator(self):
+        delete_url = reverse('task_delete', kwargs={'pk': self.test_task.pk})
+
+        self.client.force_login(self.test_user_not_creator)
+
+        response = self.client.post(delete_url)
+        self.assertEqual(response.status_code, 302)
+
+        response = self.client.get(self.task_list_url)
+        self.assertContains(response, 'afaadsafloteff') 
+        self.assertTrue(Task.objects.filter(name='afaadsafloteff').exists())
 
     def test_task_filter_executor(self):
         filter_data = {'executor': self.test_user_not_creator.pk}
