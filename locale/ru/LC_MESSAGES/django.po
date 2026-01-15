@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-14 13:15+0300\n"
+"POT-Creation-Date: 2026-01-15 13:34+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -162,15 +162,15 @@ msgstr "Статус успешно удален"
 msgid "The status cannot be deleted since it's tied with other tasks"
 msgstr "Статус нельзя удалить, так как он используется в других задачах"
 
-#: task_manager/tasks/filters.py:20
+#: task_manager/tasks/filters.py:16
 msgid "Any executor"
 msgstr "Любой исполнитель"
 
-#: task_manager/tasks/filters.py:26
+#: task_manager/tasks/filters.py:22
 msgid "Any status"
 msgstr "Любой статус"
 
-#: task_manager/tasks/filters.py:32
+#: task_manager/tasks/filters.py:28
 msgid "Any label"
 msgstr "Любая метка"
 
@@ -253,27 +253,31 @@ msgstr "Сбросить"
 msgid "Tasks"
 msgstr "Задачи"
 
+#: task_manager/tasks/templates/tasks/index.html:83
+msgid "No tasks found"
+msgstr ""
+
 #: task_manager/tasks/templates/tasks/update.html:9
 msgid "Update task"
 msgstr "Отредактировать задачу"
 
-#: task_manager/tasks/views.py:39
+#: task_manager/tasks/views.py:45
 msgid "Task created successfully"
 msgstr "Задача успешно создана"
 
-#: task_manager/tasks/views.py:50
+#: task_manager/tasks/views.py:56
 msgid "Forbidden. Not enough rights to edit this task"
 msgstr "У Вас недостаточно прав редактировать эту задачу"
 
-#: task_manager/tasks/views.py:58
+#: task_manager/tasks/views.py:64
 msgid "Task updated successfully"
 msgstr "Задача успешно обновлена"
 
-#: task_manager/tasks/views.py:67
+#: task_manager/tasks/views.py:73
 msgid "Forbidden. Not enough rights to delete this task"
 msgstr "У Вас недостаточно прав для удаления этой задачи"
 
-#: task_manager/tasks/views.py:74
+#: task_manager/tasks/views.py:80
 msgid "Task deleted successfully"
 msgstr "Задача успешно удалена"
 
@@ -373,7 +377,7 @@ msgstr "Вы успешно вошли в свой профиль"
 msgid "Logout successful"
 msgstr "Вы успешно вышли из профиля"
 
-#: templates/base.html:12 templates/header.html:5
+#: templates/base.html:12 templates/header.html:5 templates/index.html:12
 msgid "Task Manager"
 msgstr "Менеджер задач"
 
@@ -385,10 +389,20 @@ msgstr "Выйти из профиля"
 msgid "Login"
 msgstr "Войти в профиль"
 
-#: templates/index.html:7
+#: templates/index.html:9
 msgid "Welcome"
 msgstr "Добро пожаловать"
 
-#: templates/index.html:9
-msgid "Follow me"
-msgstr "Подписывайтесь"
+#: templates/index.html:14
+msgid ""
+"A Django-based task management app. Final project from Hexlet Python Backend "
+"course."
+msgstr "Приложение для управления задачами, написанное на Django. Выпускной проект "
+"курса 'Python-разработчик' школы Хекслет."
+
+#: templates/index.html:19
+msgid "my github"
+msgstr "Мой гитхаб"
+
+#~ msgid "Follow me"
+#~ msgstr "Подписывайтесь"
