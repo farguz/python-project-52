@@ -10,25 +10,21 @@ from .models import Task
 
 
 class TaskFilter(django_filters.FilterSet):
-    User = get_user_model()
-    users = User.objects.all()
-    statuses = Status.objects.all()
-    labels_list = Label.objects.all()
 
     executor = django_filters.ModelChoiceFilter(
-        queryset=users,
+        queryset=get_user_model().objects.all(),
         empty_label=_('Any executor'),
         widget=forms.Select(attrs={'class': 'form-select'})
     )
     
     status = django_filters.ModelChoiceFilter(
-        queryset=statuses,
+        queryset=Status.objects.all(),
         empty_label=_('Any status'),
         widget=forms.Select(attrs={'class': 'form-select'})
     )
     
     labels = django_filters.ModelChoiceFilter(
-        queryset=labels_list,
+        queryset=Label.objects.all(),
         empty_label=_('Any label'),
         widget=forms.Select(attrs={'class': 'form-select'})
     )
