@@ -23,8 +23,14 @@ class IndexTaskView(LoginRequiredMixin, FilterView):
     filterset_class = TaskFilter
     
     def get_queryset(self):
-        return Task.objects.all()
-    
+        return Task.objects.select_related(
+            'creator', 
+            'executor', 
+            'status'
+            ).prefetch_related(
+            'labels'
+            ).all()
+
 
 class CreateTaskView(LoginRequiredMixin, CreateView):
     model = Task
