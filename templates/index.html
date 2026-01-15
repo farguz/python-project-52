@@ -3,10 +3,23 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container">
-    <h1>{% trans 'Welcome' %}</h1>
-    <p class="lead">
-        {% trans 'Follow me' %}
-        <a href="https://github.com/farguz/python-project-52" class="btn btn-lg btn-blue border-white bg-blue">@my github</a></p>
+<div class="col-lg-8 mx-auto "> 
+    <div class="card text-center">
+        <div class="card-header">
+            <h1>{% trans 'Welcome' %}</h1>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{% trans 'Task Manager' %}</h5>
+            <p class="card-text">
+                {% trans 'A Django-based task management app. Final project from Hexlet Python Backend course.'%}
+            </p>
+        </div>
+        <div class="card-footer text-muted">
+            <a href="https://github.com/farguz/python-project-52" class="btn btn-primary">
+                {% trans 'my github' %}
+            </a>
+        </div>
+    </div>
 </div>
+
 {% endblock %}
