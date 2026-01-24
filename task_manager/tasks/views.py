@@ -74,12 +74,14 @@ class DeleteTaskView(BasePermissionMixin, DeleteView):
         task = self.get_object()
         return self.request.user == task.creator or self.request.user.is_superuser
 
-    def get_success_url(self):
+    def form_valid(self, form):
+        response = super().form_valid(form)
         messages.success(self.request, _('Task deleted successfully'))
-        return super().get_success_url()
+        return response
     
 
 class DetailTaskView(LoginRequiredMixin, DetailView):
     model = Task
     template_name = 'tasks/detail.html'
     context_object_name = 'task'
+    
