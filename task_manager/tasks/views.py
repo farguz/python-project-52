@@ -10,7 +10,7 @@ from django_filters.views import FilterView
 from task_manager.mixins import BasePermissionMixin
 
 from .filters import TaskFilter
-from .forms import TaskCreationForm, TaskUpdateForm
+from .forms import TaskForm
 from .models import Task
 
 User = get_user_model()
@@ -34,7 +34,7 @@ class IndexTaskView(LoginRequiredMixin, FilterView):
 
 class CreateTaskView(LoginRequiredMixin, CreateView):
     model = Task
-    form_class = TaskCreationForm
+    form_class = TaskForm
     template_name = 'tasks/create.html'
     success_url = reverse_lazy('task_list')
     
@@ -47,7 +47,7 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
 
 class UpdateTaskView(BasePermissionMixin, UpdateView):
     model = Task
-    form_class = TaskUpdateForm
+    form_class = TaskForm
     template_name = 'tasks/update.html'
     success_url = reverse_lazy('task_list')
     error_redirect_url = reverse_lazy('task_list')

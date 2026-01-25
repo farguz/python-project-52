@@ -10,7 +10,7 @@ from task_manager.tasks.models import Task
 User = get_user_model()
 
 
-class TaskCreationForm(ModelForm):
+class TaskForm(ModelForm):
 
     status = forms.ModelChoiceField(
         queryset=Status.objects.all(),
@@ -29,18 +29,6 @@ class TaskCreationForm(ModelForm):
         widget=forms.SelectMultiple(),
     )
 
-    class Meta:
-        model = Task
-        fields = [
-            'name',
-            'description',
-            'status',
-            'executor',
-            'labels',
-        ]
-
-
-class TaskUpdateForm(ModelForm):
     class Meta:
         model = Task
         fields = [
