@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-15 13:34+0300\n"
+"POT-Creation-Date: 2026-01-25 13:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -255,29 +255,29 @@ msgstr "Задачи"
 
 #: task_manager/tasks/templates/tasks/index.html:83
 msgid "No tasks found"
-msgstr ""
+msgstr "Задачи не найдены"
 
 #: task_manager/tasks/templates/tasks/update.html:9
 msgid "Update task"
 msgstr "Отредактировать задачу"
 
-#: task_manager/tasks/views.py:45
+#: task_manager/tasks/views.py:43
 msgid "Task created successfully"
 msgstr "Задача успешно создана"
 
-#: task_manager/tasks/views.py:56
+#: task_manager/tasks/views.py:54
 msgid "Forbidden. Not enough rights to edit this task"
 msgstr "У Вас недостаточно прав редактировать эту задачу"
 
-#: task_manager/tasks/views.py:64
+#: task_manager/tasks/views.py:62
 msgid "Task updated successfully"
 msgstr "Задача успешно обновлена"
 
-#: task_manager/tasks/views.py:73
+#: task_manager/tasks/views.py:71
 msgid "Forbidden. Not enough rights to delete this task"
 msgstr "У Вас недостаточно прав для удаления этой задачи"
 
-#: task_manager/tasks/views.py:80
+#: task_manager/tasks/views.py:79
 msgid "Task deleted successfully"
 msgstr "Задача успешно удалена"
 
@@ -290,7 +290,9 @@ msgid "Leave blank to keep the old password."
 msgstr "Оставьте пустым для сохранения пароля прежним"
 
 #: task_manager/users/forms.py:34
-msgid "Password confrmation"
+#, fuzzy
+#| msgid "Password confrmation"
+msgid "Password confirmation"
 msgstr "Подтверждение пароля"
 
 #: task_manager/users/forms.py:44
@@ -349,25 +351,30 @@ msgstr "Дата регистрации"
 msgid "Update user"
 msgstr "Отредактировать пользователя"
 
-#: task_manager/users/views.py:29
+#: task_manager/users/views.py:30
 msgid "User created successfully"
 msgstr "Пользователь успешно создан"
 
-#: task_manager/users/views.py:40
+#: task_manager/users/views.py:41
 msgid "Forbidden. Not enough rights to edit this user"
 msgstr "У Вас недостаточно прав редактировать этого пользователя"
 
-#: task_manager/users/views.py:47
+#: task_manager/users/views.py:48
 msgid "User updated successfully"
 msgstr "Пользователь успешно обновлен"
 
-#: task_manager/users/views.py:67
+#: task_manager/users/views.py:68
 msgid "Forbidden. Not enough rights to delete this user"
 msgstr "У Вас недостаточно прав для удаления этого пользователя"
 
-#: task_manager/users/views.py:74
+#: task_manager/users/views.py:75
 msgid "User deleted successfully"
 msgstr "Пользователь успешно удален"
+
+#: task_manager/users/views.py:83
+#, fuzzy
+msgid "The user cannot be deleted since he's tied with some tasks"
+msgstr "Пользователя нельзя удалить, так как он связан с некоторыми задачами"
 
 #: task_manager/views.py:26
 msgid "Login successful"
@@ -397,7 +404,8 @@ msgstr "Добро пожаловать"
 msgid ""
 "A Django-based task management app. Final project from Hexlet Python Backend "
 "course."
-msgstr "Приложение для управления задачами, написанное на Django. Выпускной проект "
+msgstr ""
+"Приложение для управления задачами, написанное на Django. Выпускной проект "
 "курса 'Python-разработчик' школы Хекслет."
 
 #: templates/index.html:19
