@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.shortcuts import redirect
 
 from task_manager.mixins import BasePermissionMixin
 
@@ -73,4 +74,16 @@ class DeleteUserView(BasePermissionMixin, DeleteView):
     def get_success_url(self):
         messages.success(self.request, _('User deleted successfully'))
         return super().get_success_url()
+
+    def form_valid(self, form):
+        self.user = self.object
+        if self.user.task_creator.exists() or self.user.task_executor.exists():
+            messages.error(
+                self.request,
+                _("The user cannot be deleted since he's tied with some tasks")
+                )
+            return redirect('user_list')
+            
+        response = super().form_valid(form)
+        return response
     
