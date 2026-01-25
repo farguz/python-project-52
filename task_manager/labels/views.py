@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .forms import LabelsCreationForm, LabelsUpdateForm
+from .forms import LabelsForm
 from .models import Label
 
 
@@ -19,7 +19,7 @@ class IndexLabelView(LoginRequiredMixin, ListView):
 class CreateLabelView(LoginRequiredMixin, CreateView):
 
     model = Label
-    form_class = LabelsCreationForm
+    form_class = LabelsForm
     template_name = 'labels/create.html'
     success_url = reverse_lazy('label_list')
 
@@ -31,7 +31,7 @@ class CreateLabelView(LoginRequiredMixin, CreateView):
 class UpdateLabelView(LoginRequiredMixin, UpdateView):
 
     model = Label
-    form_class = LabelsUpdateForm
+    form_class = LabelsForm
     template_name = 'labels/update.html'
     success_url = reverse_lazy('label_list')
     context_object_name = 'label'

@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .forms import StatusesCreationForm, StatusesUpdateForm
+from .forms import StatusesForm
 from .models import Status
 
 
@@ -19,7 +19,7 @@ class IndexStatusView(LoginRequiredMixin, ListView):
 class CreateStatusView(LoginRequiredMixin, CreateView):
 
     model = Status
-    form_class = StatusesCreationForm
+    form_class = StatusesForm
     template_name = 'statuses/create.html'
     success_url = reverse_lazy('status_list')
 
@@ -31,7 +31,7 @@ class CreateStatusView(LoginRequiredMixin, CreateView):
 class UpdateStatusView(LoginRequiredMixin, UpdateView):
 
     model = Status
-    form_class = StatusesUpdateForm
+    form_class = StatusesForm
     template_name = 'statuses/update.html'
     success_url = reverse_lazy('status_list')
     context_object_name = 'status'

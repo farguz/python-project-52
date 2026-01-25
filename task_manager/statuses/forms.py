@@ -3,15 +3,7 @@ from django.forms import ModelForm
 from .models import Status
 
 
-class StatusesCreationForm(ModelForm):
-    class Meta:
-        model = Status
-        fields = [
-            'name',
-        ]
-
-
-class StatusesUpdateForm(ModelForm):
+class StatusesForm(ModelForm):
     class Meta:
         model = Status
         fields = [
