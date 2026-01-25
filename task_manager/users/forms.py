@@ -31,7 +31,7 @@ class CustomUserChangeForm(UserChangeForm):
     )
     confirm_password = forms.CharField(
         widget=forms.PasswordInput(),
-        label=_('Password confrmation'),
+        label=_('Password confirmation'),
         required=False,
     )
 
