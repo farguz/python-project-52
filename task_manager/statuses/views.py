@@ -14,6 +14,7 @@ class IndexStatusView(LoginRequiredMixin, ListView):
     model = Status
     template_name = 'statuses/index.html'
     context_object_name = 'statuses'
+    paginate_by = 10
    
 
 class CreateStatusView(LoginRequiredMixin, CreateView):

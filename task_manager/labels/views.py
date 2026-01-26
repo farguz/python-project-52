@@ -14,6 +14,7 @@ class IndexLabelView(LoginRequiredMixin, ListView):
     model = Label
     template_name = 'labels/index.html'
     context_object_name = 'labels'
+    paginate_by = 10
 
 
 class CreateLabelView(LoginRequiredMixin, CreateView):

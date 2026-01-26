@@ -17,6 +17,7 @@ class IndexUserView(ListView):
     model = User
     template_name = 'users/index.html'
     context_object_name = 'users'
+    paginate_by = 10
 
 
 class RegistrationView(CreateView):

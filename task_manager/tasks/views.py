@@ -21,6 +21,7 @@ class IndexTaskView(LoginRequiredMixin, FilterView):
     template_name = 'tasks/index.html'
     context_object_name = 'tasks'
     filterset_class = TaskFilter
+    paginate_by = 10
     
     def get_queryset(self):
         return Task.objects.select_related(
