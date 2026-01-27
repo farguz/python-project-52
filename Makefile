@@ -30,12 +30,9 @@ lint-with-fix:
 	uv run ruff check --fix
 
 test:
-	uv run manage.py test
-
-test-pytest:
 	uv run pytest
 
 test-pytest-coverage:
-	uv run pytest --cov=gendiff --cov-report xml
+	uv run pytest --cov=task_manager --cov-report xml --cov-report term-missing
 
 check: test lint
