@@ -22,3 +22,11 @@ dev = [
     "pytest-django>=4.11.1",
     "ruff>=0.14.14",
 ]
+
+[tool.setuptools]
+packages = ["task_manager"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "task_manager.settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = "--cov=task_manager --cov-report=xml --cov-branch"
