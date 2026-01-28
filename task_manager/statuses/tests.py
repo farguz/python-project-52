@@ -1,10 +1,11 @@
+from unittest.mock import patch
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
 from .models import Status
-
-# Create your tests here.
+from .views import IndexStatusView
 
 
 class StatusesTest(TestCase):
@@ -38,7 +39,9 @@ class StatusesTest(TestCase):
 
         statuses = response.context['statuses']
         self.assertTrue(len(statuses) > 0)
+        self.assertTrue(len(statuses) < 11)  # pagination check
 
+    @patch.object(IndexStatusView, 'paginate_by', 9999)
     def test_status_create(self):
         create_url = reverse('status_create')
 
@@ -60,6 +63,7 @@ class StatusesTest(TestCase):
             Status.objects.filter(name='in progresssss').exists()
             )  
 
+    @patch.object(IndexStatusView, 'paginate_by', 9999)
     def test_status_update(self):
         update_url = reverse(
             'status_update',
@@ -78,6 +82,7 @@ class StatusesTest(TestCase):
         # aaaaaaqqqqqqqqqqqqrrrr - previous value
         self.assertNotContains(response, 'aaaaaaqqqqqqqqqqqqrrrr') 
 
+    @patch.object(IndexStatusView, 'paginate_by', 9999)
     def test_status_delete(self):
         delete_url = reverse('status_delete', kwargs={'pk': self.test_status_non_linked.pk})
 
@@ -93,6 +98,7 @@ class StatusesTest(TestCase):
             Status.objects.filter(name='kfwrpogjrp3rewfdsk').exists()
             )  
 
+    @patch.object(IndexStatusView, 'paginate_by', 9999)
     def test_status_linked_delete(self):
         delete_url = reverse('status_delete', kwargs={'pk': self.test_status_linked.pk})
         

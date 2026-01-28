@@ -1,6 +1,10 @@
+from unittest.mock import patch
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
+
+from .views import IndexUserView
 
 
 class UsersTest(TestCase):
@@ -41,7 +45,9 @@ class UsersTest(TestCase):
 
         users = response.context['users']
         self.assertTrue(len(users) > 0)
+        self.assertTrue(len(users) < 11)  # pagination check
 
+    @patch.object(IndexUserView, 'paginate_by', 9999)
     def test_user_create(self):
         create_url = reverse('user_create')
 
@@ -63,6 +69,7 @@ class UsersTest(TestCase):
             self.User.objects.filter(username='kitty_meow_90').exists()
             )
 
+    @patch.object(IndexUserView, 'paginate_by', 9999)
     def test_user_update_by_admin(self):
         update_url = reverse(
             'user_update',
@@ -89,6 +96,7 @@ class UsersTest(TestCase):
             self.User.objects.filter(first_name='lljroeiuo').exists()
             )
 
+    @patch.object(IndexUserView, 'paginate_by', 9999)
     def test_user_update_by_non_admin(self):
         update_url = reverse(
             'user_update',
@@ -120,6 +128,7 @@ class UsersTest(TestCase):
             self.User.objects.filter(first_name='lljroeiuo').exists()
             )
 
+    @patch.object(IndexUserView, 'paginate_by', 9999)
     def test_user_delete_by_admin(self):
         delete_url = reverse(
             'user_delete',
@@ -140,6 +149,7 @@ class UsersTest(TestCase):
             self.User.objects.filter(first_name='lljroeiuo').exists()
             )
 
+    @patch.object(IndexUserView, 'paginate_by', 9999)
     def test_user_delete_by_non_admin(self):
         delete_url = reverse(
             'user_delete',

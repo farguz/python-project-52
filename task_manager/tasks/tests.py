@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from django.contrib.auth import get_user_model
 from django.forms.models import model_to_dict
 from django.test import TestCase
@@ -7,6 +9,7 @@ from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
 
 from .models import Task
+from .views import IndexTaskView
 
 
 class TasksTest(TestCase):
@@ -33,7 +36,7 @@ class TasksTest(TestCase):
         self.test_task = Task.objects.get(pk=32)  # afaadsafloteff
         self.all_tasks = Task.objects.all()
 
-        self.test_label = Label.objects.get(pk=4)  # popopozzze
+        self.test_label = Label.objects.get(pk=5)  # popopozzze
         self.test_status = Status.objects.get(pk=9)  # asdasdaaaqqq
 
     def test_task_list(self):
@@ -44,7 +47,9 @@ class TasksTest(TestCase):
 
         tasks = response.context['tasks']
         self.assertTrue(len(tasks) > 0)
+        self.assertTrue(len(tasks) < 11)  # pagination check
 
+    @patch.object(IndexTaskView, 'paginate_by', 9999)
     def test_task_create(self):
         create_url = reverse('task_create')
 
@@ -66,6 +71,7 @@ class TasksTest(TestCase):
         self.assertContains(response, 'ppokpokpok')  # html
         self.assertTrue(Task.objects.filter(name='ppokpokpok').exists())  # database
 
+    @patch.object(IndexTaskView, 'paginate_by', 9999)
     def test_task_update(self):
         update_url = reverse('task_update', kwargs={'pk': self.test_task.pk})
 
@@ -88,6 +94,7 @@ class TasksTest(TestCase):
         self.assertTrue(Task.objects.filter(name='failllllllzzz').exists())
         self.assertFalse(Task.objects.filter(name='afaadsafloteff').exists())
 
+    @patch.object(IndexTaskView, 'paginate_by', 9999)
     def test_task_delete_by_creator(self):
         delete_url = reverse('task_delete', kwargs={'pk': self.test_task.pk})
 
@@ -101,6 +108,7 @@ class TasksTest(TestCase):
         self.assertNotContains(response, 'afaadsafloteff')  
         self.assertFalse(Task.objects.filter(name='afaadsafloteff').exists())  
 
+    @patch.object(IndexTaskView, 'paginate_by', 9999)
     def test_task_delete_by_not_creator(self):
         delete_url = reverse('task_delete', kwargs={'pk': self.test_task.pk})
 
@@ -138,7 +146,7 @@ class TasksTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
         tasks = response.context['tasks']
-        self.assertTrue(len(tasks) == 11)
+        self.assertTrue(len(tasks) == 4)
 
     def test_task_filter_im_creator(self):
         filter_data = {'creator': self.test_user_creator.pk}
