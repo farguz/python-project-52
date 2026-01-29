@@ -1,7 +1,7 @@
 [project]
-name = "python-project-52"
+name = "hexlet-code"
 version = "0.1.0"
-description = "Add your description here"
+description = "task_manager_by_farguz"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -22,3 +22,11 @@ dev = [
     "pytest-django>=4.11.1",
     "ruff>=0.14.14",
 ]
+
+[tool.setuptools]
+packages = ["task_manager", "task_manager.users", "task_manager.statuses", "task_manager.tasks", "task_manager.labels"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "task_manager.settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = "--cov=task_manager --cov-report=xml --cov-branch"
