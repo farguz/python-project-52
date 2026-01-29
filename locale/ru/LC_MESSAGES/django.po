@@ -400,11 +400,11 @@ msgstr "Менеджер задач"
 
 #: templates/header.html:27
 msgid "Logout"
-msgstr "Выйти из профиля"
+msgstr "Выход"
 
 #: templates/header.html:32 templates/login.html:9 templates/login.html:14
 msgid "Login"
-msgstr "Войти в профиль"
+msgstr "Вход"
 
 #: templates/index.html:9
 msgid "Welcome"
