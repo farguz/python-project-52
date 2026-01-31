@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-26 19:01+0300\n"
+"POT-Creation-Date: 2026-01-31 11:28+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,11 +35,6 @@ msgid "Delete label"
 msgstr "Удалить метку"
 
 #: task_manager/labels/templates/labels/delete.html:14
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                        Are you sure you want to delete label %(label)s?\n"
-#| "                    "
 msgid ""
 "\n"
 "                        Are you sure you want to delete label "
@@ -48,7 +42,8 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"                        Вы действительно хотите удалить метку %(label)s?\n"
+"                        Вы действительно хотите удалить метку "
+"%(label.name)s?\n"
 "                    "
 
 #: task_manager/labels/templates/labels/delete.html:18
@@ -131,13 +126,6 @@ msgstr "Создать статус"
 msgid "Delete status"
 msgstr "Удалить статус"
 
-#: task_manager/statuses/templates/statuses/delete.html:14
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                        Are you sure you want to delete status "
-#| "%(status)s?\n"
-#| "                    "
 msgid ""
 "\n"
 "                        Are you sure you want to delete status "
@@ -145,7 +133,8 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"                        Вы действительно хотите удалить статус %(status)s?\n"
+"                        Вы действительно хотите удалить статус "
+"%(status.name)s?\n"
 "                    "
 
 #: task_manager/statuses/templates/statuses/index.html:9
@@ -198,19 +187,14 @@ msgstr "Создать задачу"
 msgid "Delete task"
 msgstr "Удалить задачу"
 
-#: task_manager/tasks/templates/tasks/delete.html:14
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                        Are you sure you want to delete task %(task)s?\n"
-#| "                    "
+
 msgid ""
 "\n"
 "                        Are you sure you want to delete task %(task.name)s?\n"
 "                    "
 msgstr ""
 "\n"
-"                        Вы действительно хотите удалить задачу %(task)s?\n"
+"                        Вы действительно хотите удалить задачу %(task.name)s?\n"
 "                    "
 
 #: task_manager/tasks/templates/tasks/detail.html:7
@@ -338,8 +322,7 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"                        Вы действительно хотите удалить пользователя "
-"%(full_name)s?\n"
+"                        Вы действительно хотите удалить пользователя %(full_name)s?\n"
 "                    "
 
 #: task_manager/users/templates/users/index.html:9 templates/header.html:12
@@ -394,7 +377,7 @@ msgstr "Вы успешно вошли в свой профиль"
 msgid "Logout successful"
 msgstr "Вы успешно вышли из профиля"
 
-#: templates/base.html:12 templates/header.html:5 templates/index.html:12
+#: templates/base.html:13 templates/header.html:5 templates/index.html:12
 msgid "Task Manager"
 msgstr "Менеджер задач"
 
