@@ -8,4 +8,4 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(verbose_name=_('last name'), max_length=150, blank=False)
 
     def __str__(self):
-        return f'{self.last_name} {self.first_name}'
+        return f'{self.first_name} {self.last_name}'
