@@ -1,8 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import (
-    UserChangeForm,
-    UserCreationForm,
-)
+from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
 
 from .models import CustomUser
@@ -21,15 +18,15 @@ class CustomUserCreationForm(UserCreationForm):
         ]
 
 
-class CustomUserChangeForm(UserChangeForm):
+class CustomUserChangeForm(forms.ModelForm):
 
-    password = forms.CharField(
+    password1 = forms.CharField(
         widget=forms.PasswordInput(),
         label=_('Password'),
         required=False,
         help_text=_('Leave blank to keep the old password.'),
     )
-    confirm_password = forms.CharField(
+    password2 = forms.CharField(
         widget=forms.PasswordInput(),
         label=_('Password confirmation'),
         required=False,
@@ -37,10 +34,10 @@ class CustomUserChangeForm(UserChangeForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        password = cleaned_data.get('password')
-        confirm_password = cleaned_data.get('confirm_password')
+        password1 = cleaned_data.get('password1')
+        password2 = cleaned_data.get('password2')
 
-        if (password or confirm_password) and password != confirm_password:
+        if (password1 or password2) and password1 != password2:
             raise forms.ValidationError(_('Passwords are not the same'))
         return cleaned_data
 
