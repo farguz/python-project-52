@@ -24,6 +24,7 @@ class TaskForm(ModelForm):
         label=_('Executor'),
         empty_label=_('(not set)'),
         widget=forms.Select(),
+        required=False,
     )
 
     labels = forms.ModelMultipleChoiceField(
