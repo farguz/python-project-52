@@ -1,10 +1,9 @@
 from django.db import models
-
-# Create your models here.
+from django.utils.translation import gettext_lazy as _
 
 
 class Status(models.Model):
-    name = models.CharField(max_length=80, unique=True, blank=False)
+    name = models.CharField(verbose_name=_('Name'), max_length=80, unique=True, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

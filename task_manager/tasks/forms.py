@@ -14,17 +14,20 @@ class TaskForm(ModelForm):
 
     status = forms.ModelChoiceField(
         queryset=Status.objects.all(),
+        label=_('Status'),
         empty_label=_('(not set)'),
         widget=forms.Select(),
     )
     
     executor = forms.ModelChoiceField(
         queryset=User.objects.all(),
+        label=_('Executor'),
         empty_label=_('(not set)'),
         widget=forms.Select(),
     )
 
     labels = forms.ModelMultipleChoiceField(
+        label=_('Labels'),
         queryset=Label.objects.all(),
         widget=forms.SelectMultiple(),
     )

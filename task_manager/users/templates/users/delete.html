@@ -10,11 +10,10 @@
             <form action="{% url 'user_delete' user.id %}" method="post">
                 {% csrf_token %}
                 <p class="mb-3">
-                    {% trans user.get_full_name as full_name %}
-                    {% blocktrans %}
+                    {% blocktrans with full_name=user.get_full_name %}
                         Are you sure you want to delete user {{ full_name }}?
                     {% endblocktrans %}</p>
-                <button type="submit" class="btn btn-danger">{% trans 'Delete' %}</button>
+                <button type="submit" class="btn btn-danger">{% trans 'Confirm deletion' %}</button>
             </form>
         </div>
     </div>

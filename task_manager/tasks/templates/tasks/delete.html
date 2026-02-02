@@ -10,11 +10,10 @@
             <form action="{% url 'task_delete' task.id %}" method="post">
                 {% csrf_token %}
                 <p class="mb-3">
-                    {% trans task.name %}
-                    {% blocktrans %}
-                        Are you sure you want to delete task {{ task.name }}?
+                    {% blocktrans with name=task.name %}
+                        Are you sure you want to delete task {{ name }}?
                     {% endblocktrans %}</p>
-                <button type="submit" class="btn btn-danger">{% trans 'Delete' %}</button>
+                <button type="submit" class="btn btn-danger">{% trans 'Confirm deletion' %}</button>
             </form>
         </div>
     </div>

@@ -32,5 +32,5 @@ class TaskManagerLogoutView(LoginRequiredMixin, LogoutView):
     next_page = reverse_lazy('index_page')
 
     def post(self, request, *args, **kwargs):
-        messages.success(request, _('Logout successful'))
+        messages.info(request, _('Logout successful'))
         return super().post(request, *args, **kwargs)
