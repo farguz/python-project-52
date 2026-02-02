@@ -52,7 +52,8 @@ coverage.xml
 cover/
 
 # Translations
-*.mo
+# *.mo commented to fit hexlet tests, not my fault
+# *.mo
 *.pot
 
 # Django stuff:
