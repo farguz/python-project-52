@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-02 14:09+0300\n"
+"POT-Creation-Date: 2026-02-02 15:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -333,8 +333,7 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"                        Вы действительно хотите удалить пользователя "
-"%(full_name)s?\n"
+"                        Вы действительно хотите удалить %(full_name)s?\n"
 "                    "
 
 #: task_manager/users/templates/users/index.html:9 templates/header.html:12
@@ -397,9 +396,9 @@ msgstr "Менеджер задач"
 msgid "Logout"
 msgstr "Выход"
 
-#: templates/header.html:32 templates/login.html:9 templates/login.html:14
+#: templates/header.html:32 templates/login.html:9
 msgid "Login"
-msgstr "Войти"
+msgstr "Вход"
 
 #: templates/index.html:9
 msgid "Welcome"
@@ -416,6 +415,10 @@ msgstr ""
 #: templates/index.html:19
 msgid "my github"
 msgstr "Мой гитхаб"
+
+#: templates/login.html:14
+msgid "Log in"
+msgstr "Войти"
 
 #: templates/pagination.html:5
 msgid "first"
