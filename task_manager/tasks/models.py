@@ -9,8 +9,18 @@ User = get_user_model()
 
 
 class Task(models.Model):
-    name = models.CharField(verbose_name=_('Name'), max_length=80, unique=True, blank=False)
-    description = models.TextField(verbose_name=_('Description'), max_length=255)
+    name = models.CharField(
+        verbose_name=_('Name'),
+        max_length=80,
+        unique=True,
+        blank=False
+        )
+    description = models.TextField(
+        verbose_name=_('Description'),
+        max_length=255,
+        blank=True,
+        null=True
+        )
     status = models.ForeignKey(
         Status,
         on_delete=models.PROTECT,
@@ -19,7 +29,8 @@ class Task(models.Model):
     creator = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
-        blank=False,
+        blank=True,
+        null=True,
         related_name="task_creator",
         verbose_name=_('Creator')
         )
@@ -27,15 +38,17 @@ class Task(models.Model):
         User, 
         on_delete=models.PROTECT,
         blank=True,
+        null=True,
         related_name="task_executor",
         verbose_name=_('Executor')
         )
-    labels = models.ManyToManyField(Label, verbose_name=_('Labels'))
+    labels = models.ManyToManyField(
+        Label,
+        verbose_name=_('Labels'),
+        blank=True
+        )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.name}'
-
-
-

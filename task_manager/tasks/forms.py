@@ -31,6 +31,7 @@ class TaskForm(ModelForm):
         label=_('Labels'),
         queryset=Label.objects.all(),
         widget=forms.SelectMultiple(),
+        required=False,
     )
 
     class Meta:
