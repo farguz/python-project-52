@@ -243,7 +243,7 @@ msgstr "Метка"
 
 #: task_manager/tasks/templates/tasks/index.html:32
 msgid "I'm task creator"
-msgstr "Я создатель задачи"
+msgstr "Только свои задачи"
 
 #: task_manager/tasks/templates/tasks/index.html:38
 msgid "I'm task executor"
