@@ -56,9 +56,11 @@ class DeleteLabelView(LoginRequiredMixin, DeleteView):
     def form_valid(self, form):
         self.label = self.object
         if self.label.task_set.exists():
+            
             messages.error(
                 self.request,
-                _("The label cannot be deleted since it's tied with other tasks")
+                _("The label cannot be deleted" 
+                "since it's tied with other tasks")
                 )
             return redirect('label_list')
             

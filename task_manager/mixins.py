@@ -17,7 +17,11 @@ class BasePermissionMixin(LoginRequiredMixin, UserPassesTestMixin):
     default_error_redirect_url = reverse_lazy('index_page')
 
     def get_redirect_url(self):
-        return getattr(self, 'error_redirect_url', self.default_error_redirect_url)
+        return getattr(
+            self,
+            'error_redirect_url',
+            self.default_error_redirect_url
+            )
     
     def handle_no_permission(self):
         if self.request.user.is_authenticated:

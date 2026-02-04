@@ -39,7 +39,8 @@ class UpdateUserView(BasePermissionMixin, UpdateView):
     success_url = reverse_lazy('user_list')
     context_object_name = 'user'
     error_redirect_url = reverse_lazy('user_list')
-    permission_denied_message = _('Forbidden. Not enough rights to edit this user')
+    permission_denied_message = _('Forbidden. Not enough ' 
+    'rights to edit this user')
 
     def test_func(self):    
         user = self.get_object()
@@ -66,7 +67,8 @@ class DeleteUserView(BasePermissionMixin, DeleteView):
     success_url = reverse_lazy('user_list')
     context_object_name = 'user'
     error_redirect_url = reverse_lazy('user_list')
-    permission_denied_message = _('Forbidden. Not enough rights to delete this user')
+    permission_denied_message = _('Forbidden. Not enough ' 
+    'rights to delete this user')
 
     def test_func(self):
         user = self.get_object()

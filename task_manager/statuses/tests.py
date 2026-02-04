@@ -84,7 +84,10 @@ class StatusesTest(TestCase):
 
     @patch.object(IndexStatusView, 'paginate_by', 9999)
     def test_status_delete(self):
-        delete_url = reverse('status_delete', kwargs={'pk': self.test_status_non_linked.pk})
+        delete_url = reverse(
+            'status_delete',
+            kwargs={'pk': self.test_status_non_linked.pk}
+            )
 
         response = self.client.get(delete_url)
         self.assertEqual(response.status_code, 200)
@@ -100,7 +103,10 @@ class StatusesTest(TestCase):
 
     @patch.object(IndexStatusView, 'paginate_by', 9999)
     def test_status_linked_delete(self):
-        delete_url = reverse('status_delete', kwargs={'pk': self.test_status_linked.pk})
+        delete_url = reverse(
+            'status_delete',
+            kwargs={'pk': self.test_status_linked.pk}
+            )
         
         response = self.client.post(delete_url)
         self.assertEqual(response.status_code, 302)

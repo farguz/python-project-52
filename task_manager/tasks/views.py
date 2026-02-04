@@ -52,11 +52,15 @@ class UpdateTaskView(BasePermissionMixin, UpdateView):
     template_name = 'tasks/update.html'
     success_url = reverse_lazy('task_list')
     error_redirect_url = reverse_lazy('task_list')
-    permission_denied_message = _('Forbidden. Not enough rights to edit this task')
+    permission_denied_message = _('Forbidden. Not enough ' 
+    'rights to edit this task')
 
     def test_func(self):
         task = self.get_object()
-        return self.request.user == task.creator or self.request.user.is_superuser
+        return (
+            self.request.user == task.creator
+            or self.request.user.is_superuser
+            )
     
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -69,11 +73,15 @@ class DeleteTaskView(BasePermissionMixin, DeleteView):
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy('task_list')
     error_redirect_url = reverse_lazy('task_list')
-    permission_denied_message = _('Forbidden. Not enough rights to delete this task')
+    permission_denied_message = _('Forbidden. Not enough ' 
+    'rights to delete this task')
     
     def test_func(self):
         task = self.get_object()
-        return self.request.user == task.creator or self.request.user.is_superuser
+        return (
+            self.request.user == task.creator
+            or self.request.user.is_superuser
+        )
 
     def form_valid(self, form):
         response = super().form_valid(form)

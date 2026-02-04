@@ -50,11 +50,16 @@ class LabelsTest(TestCase):
         self.assertEqual(response.status_code, 302)  # 302 redirect
 
         response = self.client.get(self.label_list_url)
-        self.assertContains(response, 'boombayah')  # html
-        self.assertTrue(Label.objects.filter(name='boombayah').exists())  # database
+        # html
+        self.assertContains(response, 'boombayah')
+        # database
+        self.assertTrue(Label.objects.filter(name='boombayah').exists())
 
     def test_label_update(self):
-        update_url = reverse('label_update', kwargs={'pk': self.test_label_linked.pk})
+        update_url = reverse(
+            'label_update',
+            kwargs={'pk': self.test_label_linked.pk}
+            )
 
         response = self.client.get(update_url)
         self.assertEqual(response.status_code, 200)
@@ -70,7 +75,10 @@ class LabelsTest(TestCase):
         self.assertNotContains(response, 'adggda; fixed')  
 
     def test_label_delete(self):
-        delete_url = reverse('label_delete', kwargs={'pk': self.test_label_non_linked.pk})
+        delete_url = reverse(
+            'label_delete',
+            kwargs={'pk': self.test_label_non_linked.pk}
+            )
 
         response = self.client.get(delete_url)
         self.assertEqual(response.status_code, 200)
@@ -83,7 +91,10 @@ class LabelsTest(TestCase):
         self.assertFalse(Label.objects.filter(name='fsjogij4tug49jrvij').exists())
 
     def test_label_linked_delete(self):
-        delete_url = reverse('label_delete', kwargs={'pk': self.test_label_linked.pk})
+        delete_url = reverse(
+            'label_delete',
+            kwargs={'pk': self.test_label_linked.pk}
+            )
 
         response = self.client.get(delete_url)
         self.assertEqual(response.status_code, 200)

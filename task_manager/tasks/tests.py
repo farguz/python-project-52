@@ -36,7 +36,7 @@ class TasksTest(TestCase):
         self.test_task = Task.objects.get(pk=32)  # afaadsafloteff
         self.all_tasks = Task.objects.all()
 
-        self.test_label = Label.objects.get(pk=5)  # popopozzze
+        self.test_label = Label.objects.get(pk=5)  # afklk
         self.test_status = Status.objects.get(pk=9)  # asdasdaaaqqq
 
     def test_task_list(self):
@@ -68,8 +68,10 @@ class TasksTest(TestCase):
         self.assertEqual(response.status_code, 302)  # 302 redirect
 
         response = self.client.get(self.task_list_url)
-        self.assertContains(response, 'ppokpokpok')  # html
-        self.assertTrue(Task.objects.filter(name='ppokpokpok').exists())  # database
+        # html
+        self.assertContains(response, 'ppokpokpok')
+        # database
+        self.assertTrue(Task.objects.filter(name='ppokpokpok').exists())
 
     @patch.object(IndexTaskView, 'paginate_by', 9999)
     def test_task_update(self):
@@ -83,7 +85,9 @@ class TasksTest(TestCase):
             fields=['name', 'description', 'status', 'executor', 'labels', ]
             )
         task_dict['name'] = 'failllllllzzz'
-        task_dict['labels'] = [label.pk for label in self.test_task.labels.all()]
+        task_dict['labels'] = [
+            label.pk for label in self.test_task.labels.all()
+            ]
         response = self.client.post(update_url, task_dict)
         self.assertEqual(response.status_code, 302)
  

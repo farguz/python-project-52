@@ -58,7 +58,8 @@ class DeleteStatusView(LoginRequiredMixin, DeleteView):
         if self.status.task_set.exists():
             messages.error(
                 self.request,
-                _("The status cannot be deleted since it's tied with other tasks")
+                _("The status cannot be deleted " 
+                "since it's tied with other tasks")
                 )
             return redirect('status_list')
             
