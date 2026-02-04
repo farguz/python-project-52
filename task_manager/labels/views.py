@@ -59,7 +59,7 @@ class DeleteLabelView(LoginRequiredMixin, DeleteView):
             
             messages.error(
                 self.request,
-                _("The label cannot be deleted" 
+                _("The label cannot be deleted " 
                 "since it's tied with other tasks")
                 )
             return redirect('label_list')
