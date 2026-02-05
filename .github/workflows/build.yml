@@ -23,6 +23,7 @@ jobs:
           make install
       - name: Test & publish code coverage
         run: |
+          make collect-static
           make test
         env:
           SECRET_KEY: 'dummy_secret_key'
